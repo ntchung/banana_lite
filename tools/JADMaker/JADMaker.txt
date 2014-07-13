@@ -1,0 +1,105 @@
+JADMaker for Nokia Java Games
+Version 1.21
+http://www.geocities.com/mangokun/
+
+for Windows 98/2000/ME/XP
+- requires .NET Framework 2.0 or higher version runtime installed http://www.microsoft.com/downloads/details.aspx?FamilyID=0856eacb-4362-4b0d-8edd-aab15c5e04f5&DisplayLang=en (22 MB)
+
+for Windows Vista
+- .NET Framework 3.0 is included with Vista
+
+
+!!! You MUST put the files below together in the same folder.
+JADMaker.exe
+JADMaker.exe.config
+JADMaker.txt
+Ionic.Utils.Zip.dll
+
+
+What
+
+JADMaker creates a JAD file for your .JAR Java Games, so that you can install them to your mobile phone.
+
+
+Features:
+- simple DRAG and DROP operations!
+- allows batch processing of JAR files
+- enabling Explorer Context-Menu extension allows you to generate a JAD file quickly
+- keep the program 'Always on Top' of all other windows (Useful)
+- keep your program settings (in Windows Registry)
+
+
+Why
+
+Interest in Java Games for Nokia mobile phones.
+Some of the Java Games for Nokia mobile phones does not comes with a .jad file, so I searched the net for a JAD generator.
+Came across a lousy program called 'JADgen', so I decided to make one that is better then it.
+
+
+How to use this program?
+
+There are 3 ways.
+1) Run JADMaker. Drag and drop a JAR file onto the window. JAD generated. That's it!
+
+2) Drag and drop a JAR file onto the JADMaker.exe icon in a Windows Explorer window.
+This means you can also create a desktop shortcut to JADMaker.exe, and then drop JAR file(s) onto the shortcut.
+
+3) Once the "Make JAD" Explorer Context-Menu extension is enabled (by checking it in the program), 
+you can right click on any JAR file(s) for a quick "Make JAD".
+
+Remember that you can process multiple JAR files at one time (=batch procesing).
+Just select multiple files, and use any of the ways above (this is really the icing on the cake!).
+
+With so many ways to get your JAD file, you are spoilt for choice!!!
+
+
+Installation
+
+No special installation is required on Windows.
+JADMaker can be put in any folder (together with other required files).
+
+You may make a shortcut to it on your Desktop.
+
+
+Troubleshooting
+
+.NET Framework 2.0 or higher version runtime is required in your system
+The 2.0 Redistributable Package can be downloaded for free from 
+http://www.microsoft.com/downloads/details.aspx?FamilyID=0856eacb-4362-4b0d-8edd-aab15c5e04f5&DisplayLang=en
+(22 MB)
+
+
+* When I try to run JADMaker, it dies with the following error:
+META-INF/MANIFEST.MF not found in ...
+
+My program checks for "META-INF/MANIFEST.MF" in your .JAR file.
+Pls check manually that you have a valid .JAR file.
+
+
+Version History
+
+1.21 (Feb 03, 2009) (.NET 2.0)
+- Removed a bug related to extracting META-INF/MANIFEST.MF
+
+1.20 (Oct 05, 2008) (.NET 2.0)
+- Ported to VB.NET based on the source code of JADMaker 1.15.
+- Removed a bug related to Explorer Context-Menu extension
+- Most bugs should be solved as a benefit of the porting
+- Additionally works in Windows Vista
+
+1.15 (Jan 13, 2005) (VB6)
+- Minor code changes to better handle error that arises with invalid .JAR files
+
+1.1 (Sep 12, 2003) (VB6)
+- Removed a serious bug in the program, that will cause extra lines in the JAD file
+
+
+Disclaimer
+This program is free. You may distribute it, but you may not charge money for it.
+
+
+Send suggestions and comments to: 
+mangokun@hotmail.com
+
+Programmed by Goh Mingkun using Visual Basic 6.0 / Visual Studio 2005
+Last update on Tue, Feb 03, 2009

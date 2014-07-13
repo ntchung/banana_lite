@@ -1,0 +1,33 @@
+﻿ID	STRING
+STR_ENGLISH	English
+STR_ASK_SOUND	Do you want sound?
+STR_YES	Yes
+STR_NO	No
+STR_LOADING	Please wait...
+STR_ASK_EXIT	Do you want to exit game?
+STR_ASK_BACKTOMM	Select a slot to save game before exitting.
+STR_ASK_RESET	You will lose all progress if you reset game. Do you still want to do it?
+STR_PRESS_ANY_KEY	Press any key to continue
+STR_GAMEOVER	Game over!  Do you want to replay this level?
+STR_VICTORY	Victory!
+STR_ABOUT	About
+STR_NEWGAME	New Game
+STR_LOADGAME	Load Game
+STR_LEADERBOARD	Leaderboard
+STR_QUIT	Exit Game
+STR_OPTION	Settings
+STR_RESETGAME	Reset game
+STR_SOUND	Sound:
+STR_SOUND_ON	Sound: On
+STR_SOUND_OFF	Sound: Off
+STR_MAINMENU	Main menu
+STR_ENDGAME	End Game
+STR_HELP	Help
+STR_LANGUAGE	Language
+STR_PLAY	Play
+STR_RESUME	Resume
+STR_ABOUT_0	Castle Attack\n\nversion \v\n\n(c) Kinoa Studios\n\nContact us:\nkinoastudios@yahoo.com
+STR_HELP_0	Help 0.
+STR_PRESS_ANY_KEY_OR_TOUCH	Press any key or touch screen to continue
+STR_ALL	aáàảãạăắằẳẵặâấầẩẫậeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵbcdfghijklmnopqrstuvwxyz0123456789`-=\[];',./<>?:"{}|+_)(*&^%$#@!~
+STR_TOTAL	.

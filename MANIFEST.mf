@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+MIDlet-Data-Size: 4096
+Created-By: 1.4.2 (Sun Microsystems Inc.)
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-Name: CastleAttack
+MIDlet-Icon: /i.png
+MIDlet-Vendor: Kinoa Studios
+MIDlet-1: CastleAttack, /i.png, com.kinoastudios.CastleAttack.MyGame
+MIDlet-Version: 1.0.1
+MicroEdition-Profile: MIDP-2.0
+Nokia-MIDlet-Category: Game
+Nokia-MIDlet-On-Screen-Keypad: no
