@@ -7,9 +7,9 @@ del /s /q %DATA_TEMP%\*.*
 cls 
 
 cd %RAW_DIR%
-rem call MakeSprite.exe buttons.sprite buttons.dat -jf Buttons.h -ja ButtonsAnim.h
-rem call MakeSprite.exe boardgrid.sprite boardgrid.dat -jf BoardGrid.h
-rem call MakeSprite.exe pieces1.sprite pieces1.dat
+call MakeSprite.exe buttons.sprite buttons.dat -jf Buttons.h
+call MakeSprite.exe knight.sprite knight.dat -ja KnightAnim.h
+call MakeSprite.exe goblin.sprite goblin.dat -ja MeleeAnim.h
 
 move *.h %HEADER_DIR%
 cd..\..

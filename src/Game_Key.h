@@ -410,10 +410,10 @@ public void onPointerReleased( int x, int y )
 	touchDy = 0;
 }
 
-/*private final boolean isKeyMenuConfirm()
+private final boolean isKeyMenuConfirm()
 {
 	return isLeftSK || isKeyPressed( KEY_5 ) || isKeyPressed( KEY_CENTER );
-}*/
+}
 
 private final boolean isKeyMenuPrior()
 {

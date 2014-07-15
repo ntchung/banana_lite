@@ -1,0 +1,6 @@
+offscreen_buffer = 
+midlet = 
+kMaxFPS = 
+game = 
+isPaused = 
+gameThread = 

@@ -1,0 +1,7 @@
+midlet = 
+game = 
+isUpdating = 
+isPainting = 
+myThread = 
+m_lBeginTime = 
+m_lCurrentTime = 

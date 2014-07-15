@@ -1190,7 +1190,7 @@ public final class Util
 	}
 }
 
-/*
+
 class GameMenu
 {
 	public final static int kBarTypeShort = 0;
@@ -1207,18 +1207,15 @@ class GameMenu
 	public int select;
 
 	public int soundItem;
-	public int confirmMoveItem;
-	public int boardStyleItem;
-	public int pieceStyleItem;
 
 	private static boolean wasTouchDown;
+	private static boolean wasTouchInScope;
 
 	public static ASprites sprButtons;
 	public static AFont font;
 
-	public static final int BUTTON_WIDTH  = 228;
+	public static final int BUTTON_WIDTH  = 80;
 	public static final int ITEM_HEIGHT = 48;
-	public static final int ITEM_OFFSET_Y = 12;
 
 	private Font bigFont;
 	private Calendar calendar;
@@ -1231,10 +1228,7 @@ class GameMenu
 		count = num;
 
 		soundItem = -1;
-		confirmMoveItem = -1;
-		boardStyleItem = -1;
-		pieceStyleItem = -1;
-		select = -1;
+		select = 0;
 		init();		
 
 		bigFont = Font.getFont( Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM );
@@ -1244,14 +1238,17 @@ class GameMenu
 	public void init()
 	{
 		wasTouchDown = false;
-		select = -1;
+		select = 0;
 	}
 
 	private final void checkTouch( int touchX, int touchY )
 	{
-		if(((x-BUTTON_WIDTH) < touchX) && (touchX < (x + (BUTTON_WIDTH))) && ((y-4)<touchY))
+		wasTouchInScope = false;
+	
+		final int startY = y - (ITEM_HEIGHT >> 1);
+		if(((x-BUTTON_WIDTH) < touchX) && (touchX < (x + (BUTTON_WIDTH))) && (startY<touchY))
 		{
-			select = ( touchY - ( y - 4 ) ) / ITEM_HEIGHT;
+			select = ( touchY - startY ) / ITEM_HEIGHT;
 			int k = select;
 			final int next = select < count-1 ? select : count-1;
 			for( int i=0; i<=next; i++ )
@@ -1262,11 +1259,22 @@ class GameMenu
 				}
 			}		
 			select = k;
+			if( select >= count )
+			{
+				select = count - 1;
+			}
+			else
+			{
+				wasTouchInScope = true;				
+			}			
 		}		
 		else
 		{
-			select = -1;
-		}
+			if( startY > touchY )
+			{
+				select = 0;
+			}			
+		}		
 	}
 
 	public boolean update( boolean isOk, boolean isPrior, boolean isNext, boolean isTouchDown, int touchX, int touchY )
@@ -1276,135 +1284,95 @@ class GameMenu
 		if( isTouchDown )	
 		{
 			checkTouch( touchX, touchY );
-			wasTouchDown = true;
+			wasTouchDown = true;			
 		}
 		else if( wasTouchDown )
 		{			
 			checkTouch( touchX, touchY );			
-			if( select >= 0 && select < count )
+			if( wasTouchInScope && select >= 0 && select < count )
 			{
 				isConfirmed = true;
 			}
 			else
 			{
-				//if( select > count-1 )
-				//{
-				//    select = count-1;
-				//}
-				//else
-				//{
-				//    select = 0;
-				//}
-				select = -1;
+				if( select >= count )
+				{
+				   select = count-1;
+				}
+				else if( select < 0 )
+				{
+				   select = 0;
+				}
 			}
 			wasTouchDown = false;
 		}
 
-		//if( !isConfirmed )
-		//{
-		//    if( isPrior )
-		//    {
-		//        if( select > 0 )
-		//        {
-		//            select--;
-		//        }
+		if( !isConfirmed )
+		{
+		   if( isPrior )
+		   {
+		       if( select > 0 )
+		       {
+		           select--;
+		       }
 				
-		//        if( stringId[select] < 0 )
-		//        {
-		//            if( select > 0 )
-		//            {
-		//                select--;
-		//            }
-		//            else 
-		//            {
-		//                select++;
-		//            }
-		//        }
-		//    }
+		       if( stringId[select] < 0 )
+		       {
+		           if( select > 0 )
+		           {
+		               select--;
+		           }
+		           else 
+		           {
+		               select++;
+		           }
+		       }
+		   }
 			
-		//    if( isNext )
-		//    {
-		//        if( select < count-1 )
-		//        {
-		//            select++;
-		//        }
+		   if( isNext )
+		   {
+		       if( select < count-1 )
+		       {
+		           select++;
+		       }
 
-		//        if( stringId[select] < 0 )
-		//        {
-		//            if( select < count-1 )
-		//            {
-		//                select++;
-		//            }
-		//            else
-		//            {
-		//                select--;
-		//            }
-		//        }
-		//    }
-		//}
+		       if( stringId[select] < 0 )
+		       {
+		           if( select < count-1 )
+		           {
+		               select++;
+		           }
+		           else
+		           {
+		               select--;
+		           }
+		       }
+		   }
+		}
 
 		return isConfirmed;
 	}
 
 	private final void drawItem( int n, int x, int y )
 	{
-		if( barType == kBarTypeShort )
-		{
-			sprButtons.drawSpriteFrame( select == n ? Buttons.SHORT_SELECT_BAR_2 : Buttons.SHORT_SELECT_BAR_1, x, y );		
-		}
-		else if( barType == kBarTypeTiny )
-		{
-			sprButtons.drawSpriteFrame( select == n ? Buttons.TINY_SELECT_BAR_2 : Buttons.TINY_SELECT_BAR_1, x, y );	
-		}
-		else
-		{
-			sprButtons.drawSpriteFrame( select == n ? Buttons.MEDIUM_SELECT_BAR_2 : Buttons.MEDIUM_SELECT_BAR_1, x, y );		
-		}		
+		sprButtons.drawSpriteFrame( select == n ? ((wasTouchDown && wasTouchInScope) ? Buttons.RECT_BUTTON_DOWN : Buttons.RECT_BUTTON_HOVER) : Buttons.RECT_BUTTON_NORMAL, x, y );		
 
-		//if( barType == kBarTypeSaveGame )
-		//{
-		//    ASprites.currentGraphics.setFont( bigFont );
-
-		//    Date now = calendar.getTime();
-		//    calendar.setTime( now );
-		//    Util.drawShadowFont( ASprites.currentGraphics, "" + calendar.get( Calendar.DAY_OF_MONTH ) + " / " + calendar.get( Calendar.MONTH ), x, y + ITEM_OFFSET_Y, Graphics.TOP | Graphics.HCENTER, 0xFF101010, 0xFFFFFFFF );
-		//}
-		//else
+		final int halfFontHeight = Game.font.fontHeight >> 1;
+		
+		if( soundItem == n )
 		{
-			if( soundItem == n )
+			if( Game.optionSound == 1 )
 			{
-				if( Game.optionSound == 1 )
-				{
-					font.drawString( stringId[n], x, y + ITEM_OFFSET_Y, AFont.kAlignCenter );		
-				}
-				else
-				{
-					font.drawString( stringId[n] + 1, x, y + ITEM_OFFSET_Y, AFont.kAlignCenter );		
-				}
-			}
-			else if( confirmMoveItem == n )
-			{
-				if( Game.optionConfirmMove == 1 )
-				{
-					font.drawString( stringId[n], x, y + ITEM_OFFSET_Y, AFont.kAlignCenter );		
-				}
-				else
-				{
-					font.drawString( stringId[n] + 1, x, y + ITEM_OFFSET_Y, AFont.kAlignCenter );		
-				}
-			}
-			else if( boardStyleItem == n )
-			{
-				font.drawString( stringId[n] + Game.optionBoardStyle, x, y + ITEM_OFFSET_Y, AFont.kAlignCenter );					
-			}
-			else if( pieceStyleItem == n )
-			{
-				font.drawString( stringId[n] + Game.optionPieceStyle, x, y + ITEM_OFFSET_Y, AFont.kAlignCenter );					
+				font.drawString( stringId[n], x, y - halfFontHeight, AFont.kAlignCenter );		
 			}
 			else
 			{
-				font.drawString( stringId[n], x, y + ITEM_OFFSET_Y, AFont.kAlignCenter );		
+				font.drawString( stringId[n] + 1, x, y - halfFontHeight, AFont.kAlignCenter );		
 			}
+		}			
+		else
+		{
+			font.drawString( stringId[n], x, y - halfFontHeight, AFont.kAlignCenter );		
 		}
 	}
 
@@ -1430,4 +1398,3 @@ class GameMenu
 	}
 }
 
-*/

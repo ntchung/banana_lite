@@ -33,7 +33,7 @@ public class MyGame extends MIDlet
 
     public void startApp()
     {
-		String test = null;
+		/*String test = null;
 		
 		try
 		{
@@ -49,7 +49,7 @@ public class MyGame extends MIDlet
 		{
 			notifyDestroyed();
 			return;
-		}
+		}*/
 		
 		if( myCanvas == null ) 
   		{
