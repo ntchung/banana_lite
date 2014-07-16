@@ -6,6 +6,8 @@ del /s /q %DATA_TEMP%\*.*
  
 cls 
 
+copy data\sounds\*.wav %DATA_TEMP%
+
 cd %RAW_DIR%
 call MakeSprite.exe buttons.sprite buttons.dat -jf Buttons.h
 call MakeSprite.exe knight.sprite knight.dat -ja KnightAnim.h

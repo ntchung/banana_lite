@@ -8,10 +8,11 @@ STR_ASK_EXIT	Do you want to exit game?
 STR_ASK_BACKTOMM	Select a slot to save game before exitting.
 STR_ASK_RESET	You will lose all progress if you reset game. Do you still want to do it?
 STR_PRESS_ANY_KEY	Press any key to continue
+STR_HIGHSCORE	High score:
 STR_GAMEOVER	Game over!  Do you want to replay this level?
 STR_VICTORY	Victory!
 STR_ABOUT	About
-STR_NEWGAME	New Game
+STR_NEWGAME	Play
 STR_LOADGAME	Load Game
 STR_LEADERBOARD	Leaderboard
 STR_QUIT	Exit Game

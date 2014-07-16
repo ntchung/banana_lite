@@ -119,6 +119,8 @@ private void updateSplash()
 			saveProfile();
 			resetSoftkeys();
 			
+			playSfx(SFX_MENU_HIT);
+			
 			changeState( k_State_MainMenu );			
 		}
 	}	
@@ -153,10 +155,6 @@ private final boolean updateMenu( GameMenu menu )
 {
 	if( menu.update( isKeyMenuConfirm(), isKeyMenuPrior(), isKeyMenuNext(), isTouchDown, touchX, touchY ) )
 	{
-		if( menu.barType != GameMenu.kBarTypeTiny )
-		{
-			playSfx( SFX_MENU_HIT );
-		}
 		return true;
 	}
 	

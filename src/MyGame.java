@@ -72,9 +72,13 @@ public class MyGame extends MIDlet
 	}
 	
     protected void destroyApp( boolean unconditional )
-    {
+    {		
 		if( myCanvas != null )
 		{
+			if( myCanvas.game != null )
+			{
+				myCanvas.game.SaveGame();
+			}
 			myCanvas.stopApp();
 		}
     }	

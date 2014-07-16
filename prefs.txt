@@ -1,5 +1,5 @@
 #Preferences
-#Tue Jul 15 23:49:13 ICT 2014
+#Wed Jul 16 23:30:07 ICT 2014
 resourceFrame.y=0
 resourceFrame.x=0
 fps=30
@@ -58,8 +58,8 @@ e.y=0
 e.x=0
 e.w=400
 memoryViewFrame.visible=false
-d.y=134
-d.x=869
+d.y=127
+d.x=947
 watchFrame.h=504
 d.w=492
 performanceFrame.h=248

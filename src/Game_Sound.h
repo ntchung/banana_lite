@@ -1,10 +1,12 @@
 
 public static final int SFX_MENU_HIT		= 0;
-public static final int SFX_CHESS_TAP		= 1;
-public static final int SFX_ILLEGAL			= 2;
-public static final int SFX_GAMEOVER		= 3;
-public static final int SFX_CHECKED			= 4;
-public static final int SOUND_NUM			= 5;
+public static final int SFX_SHOOT			= 1;
+public static final int SFX_SWORD			= 2;
+public static final int SFX_EXPLODE			= 3;
+public static final int SFX_IMPACT1			= 4;
+public static final int SFX_IMPACT2			= 5;
+public static final int SFX_DIE				= 6;
+public static final int SOUND_NUM			= 7;
 
 public static final int SFX_CHANNEL0		= 0;
 public static final int SFX_CHANNEL1		= 1;
@@ -47,12 +49,14 @@ private static final void loadAPSfx()
 	if( !isSfxLoaded )
 	{
 		isSfxLoaded = true;
-
-		SoundPlayer.LoadSound( "/menu.wav", 2000, SFX_MENU_HIT, SoundPlayer.MIME_AUDIO_WAVE, true );			
-		SoundPlayer.LoadSound( "/tap.wav", 1000, SFX_CHESS_TAP, SoundPlayer.MIME_AUDIO_WAVE, true );
-		SoundPlayer.LoadSound( "/illegal.wav", 2500, SFX_ILLEGAL, SoundPlayer.MIME_AUDIO_WAVE, true );
-		SoundPlayer.LoadSound( "/gameover.wav", 16000, SFX_GAMEOVER, SoundPlayer.MIME_AUDIO_WAVE, true );
-		SoundPlayer.LoadSound( "/checked.wav", 3200, SFX_CHECKED, SoundPlayer.MIME_AUDIO_WAVE, true );
+		
+		SoundPlayer.LoadSound( "/menu.wav", 3000, SFX_MENU_HIT, SoundPlayer.MIME_AUDIO_WAVE, true );			
+		SoundPlayer.LoadSound( "/shoot.wav", 3400, SFX_SHOOT, SoundPlayer.MIME_AUDIO_WAVE, true );
+		SoundPlayer.LoadSound( "/sword.wav", 2700, SFX_SWORD, SoundPlayer.MIME_AUDIO_WAVE, true );
+		SoundPlayer.LoadSound( "/explode.wav", 11890 , SFX_EXPLODE, SoundPlayer.MIME_AUDIO_WAVE, true );
+		SoundPlayer.LoadSound( "/impact1.wav", 3100, SFX_IMPACT1, SoundPlayer.MIME_AUDIO_WAVE, true );
+		SoundPlayer.LoadSound( "/impact2.wav", 2600, SFX_IMPACT2, SoundPlayer.MIME_AUDIO_WAVE, true );
+		SoundPlayer.LoadSound( "/die.wav", 6400, SFX_DIE, SoundPlayer.MIME_AUDIO_WAVE, true );
 		
 		waitNextSoundFrame = 0;
 		numChannelsUsedThisFrame = 0;

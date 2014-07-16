@@ -56,10 +56,13 @@ class Game implements CommandListener
 		gameState = -1;	
 
 		resetAllKeys();
-		
-		backCommand = new Command("Back", Command.BACK, 0);
-        gameCanvas.addCommand(backCommand);
-        gameCanvas.setCommandListener(this);
+				
+		if( hasTouch )
+		{
+			backCommand = new Command("Back", Command.BACK, 0);
+			gameCanvas.addCommand(backCommand);
+			gameCanvas.setCommandListener(this);
+		}
 	}
 	
 	public void pauseGame()
@@ -107,16 +110,18 @@ class Game implements CommandListener
 				break;
 				
 				case k_State_MainMenu:
-					/*if( currentMenu == kMainMenuBase )
+					if( currentMainMenu == MAIN_MENU_BASE )
 					{
 						quitGame();
 					}
 					else
 					{
-						setLeftSoftkey( kSoftkeyNone );		
-						currentMenu = kMainMenuBase;
-						menuMainMenu.init();
-					}*/
+						setLeftSoftkey(kSoftkeyYes);
+						setRightSoftkey(kSoftkeyQuit);
+						
+						currentMenu = MAIN_MENU_BASE;
+						menuMain.init();
+					}
 				break;
 
 				case k_State_InGame:
@@ -254,5 +259,8 @@ class Game implements CommandListener
 	public static boolean hasTouch;	
 	private static boolean wasTouchDownInState;
 	private int currentMenu;
-	private int cheatStep;
+	private int cheatStep;	
+	
+	private int wallHeight;
+	private Image imgWall;
 }

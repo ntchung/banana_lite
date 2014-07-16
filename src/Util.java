@@ -1182,219 +1182,81 @@ public final class Util
 			stepLevel --;
 		}
 	}
+	
+	// Unique ID	
+	public static String getIMEI() 
+	{
+		String out = "";
+		try {
+			out = System.getProperty("com.imei");
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("phone.imei");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.nokia.IMEI");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.nokia.mid.imei");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.sonyericsson.imei");
+			}
+	 
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("IMEI");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.motorola.IMEI");
+			}
+	 
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.samsung.imei");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.siemens.imei");
+			}
+	 
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("imei");
+			}
+	 
+		} catch (Exception e) {
+			return out == null ? "" : out;
+		}
+		return out == null ? "" : out;
+	}
+	
+	//code for getting IMSI of the phone
+	public static String getIMSI() 
+	{
+		String out = "";
+		try {
+			out = System.getProperty("IMSI");
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("phone.imsi");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.nokia.mid.mobinfo.IMSI");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("com.nokia.mid.imsi");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("IMSI");
+			}
+			if (out == null || out.equals("null") || out.equals("")) {
+				out = System.getProperty("imsi");
+			}
+		} catch (Exception e) {
+			return out == null ? "" : out;
+		}
+		return out == null ? "" : out;
+	}
 
 	// Others
 	public static final boolean isPtInRect( int x, int y, int x1, int y1, int x2, int y2 )
 	{
 		return !( x < x1 || x > x2 || y < y1 || y > y2 );
-	}
-}
-
-
-class GameMenu
-{
-	public final static int kBarTypeShort = 0;
-	public final static int kBarTypeMedium = 1;
-	public final static int kBarTypeSaveGame = 2;
-	public final static int kBarTypeTiny = 3;
-
-	public int barType;
-	public int[] stringId;
-	public int count;
-
-	public int x;
-	public int y;
-	public int select;
-
-	public int soundItem;
-
-	private static boolean wasTouchDown;
-	private static boolean wasTouchInScope;
-
-	public static ASprites sprButtons;
-	public static AFont font;
-
-	public static final int BUTTON_WIDTH  = 80;
-	public static final int ITEM_HEIGHT = 48;
-
-	private Font bigFont;
-	private Calendar calendar;
-
-	public GameMenu( int num, int nbarType )
-	{
-		barType = nbarType;
-		
-		stringId = new int[num];
-		count = num;
-
-		soundItem = -1;
-		select = 0;
-		init();		
-
-		bigFont = Font.getFont( Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM );
-		calendar = Calendar.getInstance();
-	}
-
-	public void init()
-	{
-		wasTouchDown = false;
-		select = 0;
-	}
-
-	private final void checkTouch( int touchX, int touchY )
-	{
-		wasTouchInScope = false;
-	
-		final int startY = y - (ITEM_HEIGHT >> 1);
-		if(((x-BUTTON_WIDTH) < touchX) && (touchX < (x + (BUTTON_WIDTH))) && (startY<touchY))
-		{
-			select = ( touchY - startY ) / ITEM_HEIGHT;
-			int k = select;
-			final int next = select < count-1 ? select : count-1;
-			for( int i=0; i<=next; i++ )
-			{
-				if( stringId[i] < 0 )
-				{
-					k++;
-				}
-			}		
-			select = k;
-			if( select >= count )
-			{
-				select = count - 1;
-			}
-			else
-			{
-				wasTouchInScope = true;				
-			}			
-		}		
-		else
-		{
-			if( startY > touchY )
-			{
-				select = 0;
-			}			
-		}		
-	}
-
-	public boolean update( boolean isOk, boolean isPrior, boolean isNext, boolean isTouchDown, int touchX, int touchY )
-	{
-		boolean isConfirmed = isOk;
-
-		if( isTouchDown )	
-		{
-			checkTouch( touchX, touchY );
-			wasTouchDown = true;			
-		}
-		else if( wasTouchDown )
-		{			
-			checkTouch( touchX, touchY );			
-			if( wasTouchInScope && select >= 0 && select < count )
-			{
-				isConfirmed = true;
-			}
-			else
-			{
-				if( select >= count )
-				{
-				   select = count-1;
-				}
-				else if( select < 0 )
-				{
-				   select = 0;
-				}
-			}
-			wasTouchDown = false;
-		}
-
-		if( !isConfirmed )
-		{
-		   if( isPrior )
-		   {
-		       if( select > 0 )
-		       {
-		           select--;
-		       }
-				
-		       if( stringId[select] < 0 )
-		       {
-		           if( select > 0 )
-		           {
-		               select--;
-		           }
-		           else 
-		           {
-		               select++;
-		           }
-		       }
-		   }
-			
-		   if( isNext )
-		   {
-		       if( select < count-1 )
-		       {
-		           select++;
-		       }
-
-		       if( stringId[select] < 0 )
-		       {
-		           if( select < count-1 )
-		           {
-		               select++;
-		           }
-		           else
-		           {
-		               select--;
-		           }
-		       }
-		   }
-		}
-
-		return isConfirmed;
-	}
-
-	private final void drawItem( int n, int x, int y )
-	{
-		sprButtons.drawSpriteFrame( select == n ? ((wasTouchDown && wasTouchInScope) ? Buttons.RECT_BUTTON_DOWN : Buttons.RECT_BUTTON_HOVER) : Buttons.RECT_BUTTON_NORMAL, x, y );		
-
-		final int halfFontHeight = Game.font.fontHeight >> 1;
-		
-		if( soundItem == n )
-		{
-			if( Game.optionSound == 1 )
-			{
-				font.drawString( stringId[n], x, y - halfFontHeight, AFont.kAlignCenter );		
-			}
-			else
-			{
-				font.drawString( stringId[n] + 1, x, y - halfFontHeight, AFont.kAlignCenter );		
-			}
-		}			
-		else
-		{
-			font.drawString( stringId[n], x, y - halfFontHeight, AFont.kAlignCenter );		
-		}
-	}
-
-	public void paint( int nx, int ny )
-	{
-		x = nx;
-		y = ny;
-
-		int y0 = y;
-		for( int i=0; i<count; i++ )
-		{
-			if( stringId[i] >= 0 )
-			{
-				drawItem( i, x, y0 );
-				y0 += ITEM_HEIGHT;
-			}
-		}
-	}
-
-	public void setItem( int n, int nstringId )
-	{
-		stringId[n] = nstringId;
-	}
+	}	
 }
 

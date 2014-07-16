@@ -1,5 +1,5 @@
 #Preferences
-#Mon Oct 10 16:46:05 ICT 2011
+#Wed Jul 16 21:04:52 ICT 2014
 resourceFrame.y=0
 resourceFrame.x=0
 fps=14
@@ -12,7 +12,7 @@ xray-m3gfill=false
 resourceFrame.h=200
 xrayFrame.y=0
 xrayFrame.x=0
-xrayFrame.w=490
+xrayFrame.w=492
 monitorFrame.visible=false
 memoryViewFrame.y=0
 memoryViewFrame.x=0
@@ -20,7 +20,7 @@ memoryViewFrame.w=300
 performanceFrame.visible=false
 testBenchFrame.visible=false
 a.visible=false
-xrayFrame.h=772
+xrayFrame.h=793
 testBenchFrame.y=0
 testBenchFrame.x=0
 testBenchFrame.w=300
@@ -61,7 +61,7 @@ memoryViewFrame.visible=false
 d.y=108
 d.x=497
 watchFrame.h=200
-d.w=490
+d.w=492
 performanceFrame.h=200
 c.y=0
 c.x=0
@@ -70,7 +70,7 @@ e.h=200
 b.y=0
 b.x=0
 b.w=300
-d.h=677
+d.h=756
 a.y=0
 a.x=0
 a.w=300

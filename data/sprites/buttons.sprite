@@ -5,15 +5,15 @@
     VERSION 0001
 
     // Images:  1
-    // Modules: 12
-    // Frames:  12
+    // Modules: 18
+    // Frames:  18
     // Anims:   0
 
 ////////////////////////////////////////////////////////////////////////////////
 // Images...
 // <Image> := IMAGE [id] "file" [ALPHA "alpha_file"] [TRANSP transp_color]
 
-    IMAGE 0x0000 ".\buttons.png" TRANSP 0x00FF00FF // 0  size: 256 x 256  palettes: 1
+    IMAGE 0x0000 ".\buttons.png" TRANSP 0x00FF00FF // 0  size: 156 x 280  palettes: 1
 
 ////////////////////////////////////////////////////////////////////////////////
 // Modules...
@@ -45,6 +45,12 @@
         MD	0x1009	MD_IMAGE	0	0	202	42	38
         MD	0x100A	MD_IMAGE	0	42	202	42	38
         MD	0x100B	MD_IMAGE	0	84	202	42	38
+        MD	0x100C	MD_IMAGE	0	0	240	42	38
+        MD	0x100D	MD_IMAGE	0	42	240	42	38
+        MD	0x100E	MD_IMAGE	0	84	240	42	38
+        MD	0x100F	MD_IMAGE	0	128	127	24	24
+        MD	0x1010	MD_IMAGE	0	128	151	24	24
+        MD	0x1011	MD_IMAGE	0	128	175	24	24
     }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -124,6 +130,42 @@
     {
         0x200B
         FM	0x100B	-21	-19
+    }
+
+    FRAME "SOFT_QUIT_NORMAL" // Index = 12, FModules = 1
+    {
+        0x200C
+        FM	0x100C	-21	-19
+    }
+
+    FRAME "SOFT_QUIT_HOVER" // Index = 13, FModules = 1
+    {
+        0x200D
+        FM	0x100D	-21	-19
+    }
+
+    FRAME "SOFT_QUIT_DOWN" // Index = 14, FModules = 1
+    {
+        0x200E
+        FM	0x100E	-21	-19
+    }
+
+    FRAME "SOFT_ARROW_NORMAL" // Index = 15, FModules = 1
+    {
+        0x200F
+        FM	0x100F	-18	-6
+    }
+
+    FRAME "SOFT_ARROW_HOVER" // Index = 16, FModules = 1
+    {
+        0x2010
+        FM	0x1010	-18	-6
+    }
+
+    FRAME "SOFT_ARROW_DOWN" // Index = 17, FModules = 1
+    {
+        0x2011
+        FM	0x1011	-18	-6
     }
 
     SPRITE_END

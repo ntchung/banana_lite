@@ -3,16 +3,19 @@ private static final String	recordName = "Game";
 
 private static final int recordOptionSound = 0;
 private static final int recordOptionLanguage = recordOptionSound + 1;
-private static final int recordSize = recordOptionLanguage + 1;
+private static final int recordHighScore = recordOptionLanguage + 1;
+private static final int recordSize = recordHighScore + 4;
 
 public static int optionSound;
 public static int optionLanguage;
+public static int highScore;
  
 private void resetProfile()
 {
 	// Reset profile
 	optionSound = 1;
 	optionLanguage = 0;
+	highScore = 0;
 	saveProfile();
 }
 
@@ -27,28 +30,43 @@ private void validateProfile()
 	{
 		optionLanguage = 1;
 	}
+	
+	if( highScore < 0 )
+	{
+		highScore = 0;
+	}
 }
  
 private boolean loadProfile()
 {	
-	// NTChung - TO REMOVE	
-	//resetProfile();
-	
-	byte[] data = rmsRead( recordName, 1 );
-	if( data == null )
+	try
 	{
-		// Reset profile
-		resetProfile();			
+		// NTChung - TO REMOVE	
+		//resetProfile();
+		
+		byte[] data = rmsRead( recordName, 1 );
+		if( data == null )
+		{
+			// Reset profile
+			resetProfile();			
+			return false;
+		}
+		else
+		{
+			optionLanguage = data[recordOptionLanguage];
+			optionSound = data[recordOptionSound];
+			highScore = Util.bytes2Int(data, 2);
+			
+			validateProfile();
+			data = null;
+		}	
+	
+	}
+	catch( Exception ex )
+	{
+		resetProfile();
 		return false;
 	}
-	else
-	{
-		optionLanguage = data[recordOptionLanguage];
-		optionSound = data[recordOptionSound];
-		
-		validateProfile();
-		data = null;
-	}	
 	
 	return true;
 }
@@ -59,6 +77,7 @@ private void saveProfile()
 	
 	data[recordOptionLanguage] = (byte)optionLanguage;
 	data[recordOptionSound] = (byte)optionSound;	
+	Util.int2Bytes(data, 2, highScore);
 	
 	rmsWrite( recordName, 1, data );
 }

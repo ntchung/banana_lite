@@ -12,4 +12,10 @@ class Buttons
 	public final static int SOFT_IGM_NORMAL = 9;
 	public final static int SOFT_IGM_HOVER = 10;
 	public final static int SOFT_IGM_DOWN = 11;
+	public final static int SOFT_QUIT_NORMAL = 12;
+	public final static int SOFT_QUIT_HOVER = 13;
+	public final static int SOFT_QUIT_DOWN = 14;
+	public final static int SOFT_ARROW_NORMAL = 15;
+	public final static int SOFT_ARROW_HOVER = 16;
+	public final static int SOFT_ARROW_DOWN = 17;
 }

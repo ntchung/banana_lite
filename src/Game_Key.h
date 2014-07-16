@@ -281,14 +281,25 @@ public void onPointerPressed( int x, int y )
 	{
 		if( x < softkeyTouchWidth )
 		{
-			onGameKeyPressed( SOFT_KEY_LEFT );
-			isHandled = true;
+			// IGM is located at top left - not handled here
+			if( leftSKType != kSoftkeyIGM )
+			{
+				onGameKeyPressed( SOFT_KEY_LEFT );
+				isHandled = true;
+			}
 		}
 		else if( x > canvasWidth - softkeyTouchWidth )
 		{
 			onGameKeyPressed( SOFT_KEY_RIGHT );
 			isHandled = true;
 		}
+	}
+	
+	// Handle IGM - special touch case
+	if( y < 42 && x < softkeyTouchWidth && leftSKType == kSoftkeyIGM )
+	{
+		onGameKeyPressed( SOFT_KEY_LEFT );
+		isHandled = true;	
 	}
 	
 	// TODO
@@ -331,8 +342,12 @@ public void onPointerDragged( int x, int y )
 	{
 		if( x < softkeyTouchWidth )
 		{
-			onGameKeyPressed( SOFT_KEY_LEFT );
-			isHandled = true;
+			// IGM is located at top left - not handled here
+			if( leftSKType != kSoftkeyIGM )
+			{
+				onGameKeyPressed( SOFT_KEY_LEFT );
+				isHandled = true;
+			}
 		}
 		else if( x > ( canvasWidth - softkeyTouchWidth ) )
 		{
@@ -344,6 +359,13 @@ public void onPointerDragged( int x, int y )
 			onGameKeyReleased( SOFT_KEY_LEFT );
 			onGameKeyReleased( SOFT_KEY_RIGHT );
 		}
+	}
+	
+	// Handle IGM - special touch case
+	if( y < 42 && x < softkeyTouchWidth && leftSKType == kSoftkeyIGM )
+	{
+		onGameKeyPressed( SOFT_KEY_LEFT );
+		isHandled = true;	
 	}
 	
 	/*if( !isHandled )	

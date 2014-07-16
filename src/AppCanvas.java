@@ -19,7 +19,7 @@ class AppCanvas extends GameCanvas
 	
 	private int kMaxFPS = 30;
 	
-	Game game;
+	public Game game;
 	private boolean isPaused;
 		
 	private GameThread gameThread;
@@ -30,10 +30,11 @@ class AppCanvas extends GameCanvas
 
 		setFullScreenMode( true );
 		
+		//Game.hasTouch = hasPointerEvents();
+		Game.hasTouch = false;
+		
 		game = new Game( this );
-		game.setSize( this.getWidth(), this.getHeight() );		
-
-		Game.hasTouch = hasPointerEvents();
+		game.setSize( this.getWidth(), this.getHeight() );			
 		
 		isPaused = false;
 		Util.initKeyAdaptor(this);		
