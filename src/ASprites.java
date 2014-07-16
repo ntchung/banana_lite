@@ -278,7 +278,7 @@ class ASprites
 		}
 	}
 	
-	public void drawSpriteFrame(int id,int x, int y, int flag)
+	public void drawSpriteFrame(int id, int x, int y, int flag)
 	{
 		int start, end;
 		short frameModuleX, frameModuleY;

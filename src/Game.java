@@ -56,13 +56,15 @@ class Game implements CommandListener
 		gameState = -1;	
 
 		resetAllKeys();
+		
+		playerCharacter = new PlayerCharacter();
 				
 		if( hasTouch )
 		{
 			backCommand = new Command("Back", Command.BACK, 0);
 			gameCanvas.addCommand(backCommand);
 			gameCanvas.setCommandListener(this);
-		}
+		}		
 	}
 	
 	public void pauseGame()
@@ -243,6 +245,7 @@ class Game implements CommandListener
 	
 	public static int canvasWidth, canvasHeight;
 	public static int halfCanvasWidth, halfCanvasHeight;
+	public static int wallHeight;
 	public static boolean isCheatEnabled;	
 	
 	public static AFont font;
@@ -260,7 +263,8 @@ class Game implements CommandListener
 	private static boolean wasTouchDownInState;
 	private int currentMenu;
 	private int cheatStep;	
-	
-	private int wallHeight;
+		
 	private Image imgWall;
+	
+	private PlayerCharacter playerCharacter;
 }

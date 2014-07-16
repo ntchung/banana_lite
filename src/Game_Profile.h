@@ -55,7 +55,7 @@ private boolean loadProfile()
 		{
 			optionLanguage = data[recordOptionLanguage];
 			optionSound = data[recordOptionSound];
-			highScore = Util.bytes2Int(data, 2);
+			highScore = Util.bytes2Int(data, recordHighScore);
 			
 			validateProfile();
 			data = null;
@@ -77,9 +77,43 @@ private void saveProfile()
 	
 	data[recordOptionLanguage] = (byte)optionLanguage;
 	data[recordOptionSound] = (byte)optionSound;	
-	Util.int2Bytes(data, 2, highScore);
+	Util.int2Bytes(data, recordHighScore, highScore);
 	
 	rmsWrite( recordName, 1, data );
+}
+
+private boolean loadGameData()
+{
+	try
+	{
+		byte[] data = rmsRead( recordName, 2 );
+		if( data == null )
+		{
+			LoadGame(null, 0);
+			return false;
+		}
+		else
+		{
+			LoadGame(data, 0);
+			data = null;
+		}	
+	
+	}
+	catch( Exception ex )
+	{
+		LoadGame(null, 0);
+		return false;
+	}
+	
+	return true;
+}
+
+public void saveGameData()
+{
+	byte[] data = new byte[2048];
+	SaveGame(data, 0);
+	rmsWrite( recordName, 2, data );
+	data = null;
 }
 
 private static RecordStore s_rs;

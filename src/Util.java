@@ -630,6 +630,24 @@ public final class Util
     }  
 	
 	// Bits and Bytes	
+	public static final int bytes2Short( byte[] bytes, int offset )
+	{
+		int result;
+		
+		result = (
+				  	((bytes[offset+0] & 0xff) << 8) | 
+				  	( bytes[offset+1] & 0xff)
+				  );
+		
+		return result;
+	}
+	
+	public static final void short2Bytes( byte result[], int offset, int integer )
+	{	
+		result[offset+0] = (byte)(0xff & (integer >> 8));
+		result[offset+1] = (byte)(0xff & integer);
+	}
+	
 	public static final int bytes2Int( byte[] bytes, int offset )
 	{
 		int result;
