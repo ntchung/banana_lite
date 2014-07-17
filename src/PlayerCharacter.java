@@ -43,6 +43,10 @@ class PlayerCharacter
 			case KnightAnim.walk_bow:
 				updateWalkBow();
 			break;
+			
+			case KnightAnim.attack_bow:
+				updateAttackBow();
+			break;
 		}
 	
 		++currentFrameFraction;
@@ -64,13 +68,28 @@ class PlayerCharacter
 		{
 			changeAnim(KnightAnim.walk_bow);
 			flip = Sprite.TRANS_MIRROR;
-			--x;
 		}		
 		else if( Game.isKeyDown( Game.KEY_RIGHT ) || Game.isKeyDown( Game.KEY_6 ) )
 		{
 			changeAnim(KnightAnim.walk_bow);
 			flip = Sprite.TRANS_NONE;
-			++x;
+		}
+		else if( Game.isKeyDown( Game.KEY_8 ) || Game.isKeyDown( Game.KEY_DOWN ) )
+		{
+			changeAnim(KnightAnim.attack_bow);
+		}
+	}
+	
+	private void updateAttackBow()
+	{
+		if( Game.isKeyDown( Game.KEY_8 ) || Game.isKeyDown( Game.KEY_DOWN ) )
+		{
+			return;
+		}
+		
+		if( currentFrame == animFramesCount[currentAnim] - 1 )	
+		{
+			changeAnim(KnightAnim.idle_bow);
 		}
 	}
 	

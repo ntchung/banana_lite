@@ -59,6 +59,7 @@ class Game implements CommandListener
 		
 		playerCharacter = new PlayerCharacter();
 		enemiesManager = new EnemiesManager();
+		projectilesManager = new ProjectilesManager();
 				
 		if( hasTouch )
 		{
@@ -269,4 +270,5 @@ class Game implements CommandListener
 	
 	private PlayerCharacter playerCharacter;
 	private EnemiesManager enemiesManager;
+	private ProjectilesManager projectilesManager;
 }

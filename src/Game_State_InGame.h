@@ -8,6 +8,7 @@ private void initInGame()
 	
 	playerCharacter.loadAssets();
 	enemiesManager.loadAssets();
+	projectilesManager.loadAssets();
 	
 	if( needLoadGameData )
 	{
@@ -24,6 +25,7 @@ private void updateInGame()
 {
 	playerCharacter.update();
 	enemiesManager.update();
+	projectilesManager.update();
 	
 	if( isLeftSK )
 	{
@@ -45,6 +47,7 @@ private void paintInGame()
 		( canvasHeight - imgWall.getHeight() ), 0 );			
 		
 	enemiesManager.paintBeforeWall(currentGraphics);
+	projectilesManager.paint(currentGraphics);
 }
 
 private final boolean checkTouchIGM( boolean isDown, int x, int y )
