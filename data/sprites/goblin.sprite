@@ -7,7 +7,7 @@
     // Images:  1
     // Modules: 42
     // Frames:  42
-    // Anims:   6
+    // Anims:   7
 
 ////////////////////////////////////////////////////////////////////////////////
 // Images...
@@ -342,13 +342,7 @@
 // <AFi>  := AF frame_id time ox oy [FLAGS hex_flags] [+Flags]
 // Flags  := FLIP_X | FLIP_Y | ROT_90
 
-    ANIM "idle" // Index = 0, AFrames = 1
-    {
-        0x3000
-        AF	0x201A	1	0	0
-    }
-
-    ANIM "walk" // Index = 1, AFrames = 8
+    ANIM "patrol" // Index = 0, AFrames = 8
     {
         0x3001
         AF	0x2022	1	0	0
@@ -361,21 +355,51 @@
         AF	0x2029	1	0	0
     }
 
-    ANIM "dying" // Index = 2, AFrames = 9
+    ANIM "climb" // Index = 1, AFrames = 8
     {
-        0x3002
-        AF	0x2011	1	0	0
-        AF	0x2012	1	0	0
-        AF	0x2013	1	0	0
-        AF	0x2014	1	0	0
-        AF	0x2015	1	0	0
-        AF	0x2016	1	0	0
-        AF	0x2017	1	0	0
-        AF	0x2018	1	0	0
-        AF	0x2019	1	0	0
+        0x3004
+        AF	0x2009	1	0	0
+        AF	0x200A	1	0	0
+        AF	0x200B	1	0	0
+        AF	0x200C	1	0	0
+        AF	0x200D	1	0	0
+        AF	0x200E	1	0	0
+        AF	0x200F	1	0	0
+        AF	0x2010	1	0	0
     }
 
-    ANIM "attack" // Index = 3, AFrames = 9
+    ANIM "pushup" // Index = 2, AFrames = 7
+    {
+        0x3005
+        AF	0x201B	1	0	0
+        AF	0x201C	1	0	0
+        AF	0x201D	1	0	0
+        AF	0x201E	1	0	0
+        AF	0x201F	1	0	0
+        AF	0x2020	1	0	0
+        AF	0x2021	1	0	0
+    }
+
+    ANIM "idle" // Index = 3, AFrames = 1
+    {
+        0x3000
+        AF	0x201A	1	0	0
+    }
+
+    ANIM "chase" // Index = 4, AFrames = 8
+    {
+        0x3006
+        AF	0x2022	1	0	0
+        AF	0x2023	1	0	0
+        AF	0x2024	1	0	0
+        AF	0x2025	1	0	0
+        AF	0x2026	1	0	0
+        AF	0x2027	1	0	0
+        AF	0x2028	1	0	0
+        AF	0x2029	1	0	0
+    }
+
+    ANIM "attack" // Index = 5, AFrames = 9
     {
         0x3003
         AF	0x2000	1	0	0
@@ -389,29 +413,18 @@
         AF	0x2008	1	0	0
     }
 
-    ANIM "climb" // Index = 4, AFrames = 8
+    ANIM "dying" // Index = 6, AFrames = 9
     {
-        0x3004
-        AF	0x2009	1	0	0
-        AF	0x200A	1	0	0
-        AF	0x200B	1	0	0
-        AF	0x200C	1	0	0
-        AF	0x200D	1	0	0
-        AF	0x200E	1	0	0
-        AF	0x200F	1	0	0
-        AF	0x2010	1	0	0
-    }
-
-    ANIM "pushup" // Index = 5, AFrames = 7
-    {
-        0x3005
-        AF	0x201B	1	0	0
-        AF	0x201C	1	0	0
-        AF	0x201D	1	0	0
-        AF	0x201E	1	0	0
-        AF	0x201F	1	0	0
-        AF	0x2020	1	0	0
-        AF	0x2021	1	0	0
+        0x3002
+        AF	0x2011	1	0	0
+        AF	0x2012	1	0	0
+        AF	0x2013	1	0	0
+        AF	0x2014	1	0	0
+        AF	0x2015	1	0	0
+        AF	0x2016	1	0	0
+        AF	0x2017	1	0	0
+        AF	0x2018	1	0	0
+        AF	0x2019	1	0	0
     }
 
     SPRITE_END

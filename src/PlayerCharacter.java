@@ -55,7 +55,7 @@ class PlayerCharacter
 	
 	public void paint(Graphics g)
 	{
-		sprite.drawSpriteAnimFrame(currentAnim, currentFrame, x, y, flip);
+		sprite.drawSpriteAnimFrame(currentAnim, currentFrame, Game.halfCanvasWidth + (x >> 4), Game.canvasHeight - (y >> 4), flip);
 	}
 	
 	private void updateIdleBow()
@@ -78,39 +78,39 @@ class PlayerCharacter
 	{
 		if( Game.isKeyDown( Game.KEY_LEFT ) || Game.isKeyDown( Game.KEY_4 ) )
 		{
-			if( accelerate > -10 )
+			if( accelerate > -16 )
 			{
-				accelerate = -10;				
+				accelerate = -16;				
 			}
 			else
 			{
 				accelerate -= 3;
-				if( accelerate < -30 )
+				if( accelerate < -48 )
 				{
-					accelerate = -30;
+					accelerate = -48;
 				}
 			}
 			
 			flip = Sprite.TRANS_MIRROR;
-			x += accelerate / 10;			
+			x += accelerate;			
 		}		
 		else if( Game.isKeyDown( Game.KEY_RIGHT ) || Game.isKeyDown( Game.KEY_6 ) )
 		{
-			if( accelerate < 10 )
+			if( accelerate < 16 )
 			{
-				accelerate = 10;				
+				accelerate = 16;				
 			}
 			else
 			{
 				accelerate += 3;				
-				if( accelerate > 30 )
+				if( accelerate > 48 )
 				{
-					accelerate = 30;
+					accelerate = 48;
 				}
 			}
 			
 			flip = Sprite.TRANS_NONE;
-			x += accelerate / 10;
+			x += accelerate;
 		}
 		else
 		{
@@ -118,13 +118,13 @@ class PlayerCharacter
 			changeAnim(KnightAnim.idle_bow);
 		}
 		
-		if( x < 0 )
+		if( x < -(Game.halfCanvasWidth << 4) )
 		{
-			x = 0;
+			x = -(Game.halfCanvasWidth << 4);
 		}
-		else if( x > Game.canvasWidth )
+		else if( x > (Game.halfCanvasWidth << 4) )
 		{
-			x = Game.canvasWidth;
+			x = (Game.halfCanvasWidth << 4);
 		}
 	}
 	
@@ -140,7 +140,7 @@ class PlayerCharacter
 	public int deserialize(byte[] data, int offset)
 	{
 		// default
-		y = Game.canvasHeight - Game.wallHeight;		
+		y = Game.wallHeight << 4;		
 		currentAnim = KnightAnim.idle_bow;
 		currentFrame = 0;
 		currentFrameFraction = 0;
@@ -158,7 +158,7 @@ class PlayerCharacter
 		
 		// empty
 		currentAnim = KnightAnim.idle_bow;
-		x = Game.canvasWidth >> 1;
+		x = 0;
 		flip = Sprite.TRANS_NONE;
 		
 		return 0;

@@ -58,6 +58,7 @@ class Game implements CommandListener
 		resetAllKeys();
 		
 		playerCharacter = new PlayerCharacter();
+		enemiesManager = new EnemiesManager();
 				
 		if( hasTouch )
 		{
@@ -267,4 +268,5 @@ class Game implements CommandListener
 	private Image imgWall;
 	
 	private PlayerCharacter playerCharacter;
+	private EnemiesManager enemiesManager;
 }
