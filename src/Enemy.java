@@ -32,20 +32,26 @@ class Enemy
 		x = 0;
 		y = 0;			
 		isBehindWall = false;
+		HP = properties.MaxHP;
 		
 		currentAnim = 0;
 		currentFrame = 0;
 		currentFrameFraction = 0;
 		flip = Sprite.TRANS_NONE;	
+		
+		decisionCountdown = properties.MinDecisionCountdown + (Math.abs(EnemiesManager.Instance.random.nextInt()) % (properties.MaxDecisionCountdown - properties.MinDecisionCountdown + 1));
+		decisionX = (-Game.halfCanvasWidth + (Math.abs(EnemiesManager.Instance.random.nextInt()) % Game.canvasWidth)) << 4;
 	}
 
-	public void update()
-	{	
+	public boolean update()
+	{		
+		boolean res = true;
+		
 		switch( type )
 		{
 		case EnemiesManager.TYPE_GOBLIN:
 		case EnemiesManager.TYPE_TROLL:
-			updateMelee();
+			res = updateMelee();
 			break;
 		}
 	
@@ -54,7 +60,9 @@ class Enemy
 		{
 			currentFrame = (currentFrame + 1) % animFramesCount[currentAnim];		
 			currentFrameFraction = 0;
-		}
+		}		
+		
+		return res;
 	}
 	
 	public void paint(Graphics g)
@@ -68,6 +76,7 @@ class Enemy
 		{
 			currentAnim = id;
 			currentFrame = 0;
+			currentFrameFraction = 0;
 		}
 	}
 	
@@ -76,16 +85,35 @@ class Enemy
 		// serialized
 		if( data != null )
 		{
-			type = data[offset+0];
-			reset(type);
+			type = data[offset];
+			++offset;
+			currentAnim = data[offset];
+			++offset;
+			currentFrame = data[offset];
+			++offset;
+			currentFrameFraction = data[offset];
+			++offset;		
+			x = Util.bytes2Short(data, offset);
+			offset += 2;
+			y = Util.bytes2Short(data, offset);
+			offset += 2;
+			flip = data[offset] == 0 ? Sprite.TRANS_NONE : Sprite.TRANS_MIRROR;
+			++offset;
+			isBehindWall = data[offset] == 0 ? false : true;			
+			++offset;
+			HP = data[offset];
+			++offset;
+			decisionCountdown = Util.bytes2Short(data, offset);
+			offset += 2;
 			
-			x = Util.bytes2Short(data, offset+1);
-			y = Util.bytes2Short(data, offset+3);
-			flip = data[offset+5] == 0 ? Sprite.TRANS_NONE : Sprite.TRANS_MIRROR;
-			isBehindWall = data[offset+6] == 0 ? false : true;			
+			isActive = true;			
+			sprite = EnemiesManager.Instance.spritesPool[type];
+			animFramesCount = EnemiesManager.Instance.animFramesCount[type];
+			properties = EnemiesManager.Instance.EnemyPropertiesPool[type];
+			decisionX = (-Game.halfCanvasWidth + (Math.abs(EnemiesManager.Instance.random.nextInt()) % Game.canvasWidth)) << 4;			
 			
 			// new offset
-			return offset + 7;
+			return offset;
 		}
 		
 		return offset;
@@ -93,13 +121,33 @@ class Enemy
 	
 	public int serialize(byte[] data, int offset)
 	{
-		data[offset+0] = (byte)type;
-		Util.short2Bytes(data, offset+1, x);
-		Util.short2Bytes(data, offset+3, y);
-		data[offset+5] = (byte)(flip == Sprite.TRANS_NONE ? 0 : 1);
-		data[offset+6] = (byte)(isBehindWall ? 1 : 0);		
-		return offset + 7;
+		data[offset] = (byte)type;
+		++offset;
+		data[offset] = (byte)currentAnim;
+		++offset;
+		data[offset] = (byte)currentFrame;		
+		++offset;
+		data[offset] = (byte)currentFrameFraction;				
+		++offset;
+		Util.short2Bytes(data, offset, x);
+		offset += 2;
+		Util.short2Bytes(data, offset, y);
+		offset += 2;
+		data[offset] = (byte)(flip == Sprite.TRANS_NONE ? 0 : 1);
+		++offset;
+		data[offset] = (byte)(isBehindWall ? 1 : 0);		
+		++offset;
+		data[offset] = (byte)HP;
+		++offset;
+		Util.short2Bytes(data, offset, decisionCountdown);
+		offset += 2;
+		return offset;
 	}	
+	
+	public void takeHit(int damage)
+	{
+		HP -= damage;
+	}
 	
 	public boolean isActive;	
 	public boolean isBehindWall;
@@ -107,11 +155,16 @@ class Enemy
 	private ASprites sprite;
 	private byte[] animFramesCount;
 	private int type;
-	private int	currentAnim;
+	public int currentAnim;
 	private int currentFrame;
 	private int currentFrameFraction;
+	
 	public int x;
 	public int y;
 	public int flip;
 	public EnemyProperties properties;
+	public int HP;
+	
+	private int decisionCountdown;
+	private int decisionX;
 }

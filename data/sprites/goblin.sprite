@@ -195,49 +195,49 @@
     FRAME "" // Index = 18, FModules = 1
     {
         0x2012
-        FM	0x1012	-17	-42
+        FM	0x1012	-18	-38
     }
 
     FRAME "" // Index = 19, FModules = 1
     {
         0x2013
-        FM	0x1013	-19	-35
+        FM	0x1013	-18	-29
     }
 
     FRAME "" // Index = 20, FModules = 1
     {
         0x2014
-        FM	0x1014	-26	-35
+        FM	0x1014	-20	-32
     }
 
     FRAME "" // Index = 21, FModules = 1
     {
         0x2015
-        FM	0x1015	-27	-31
+        FM	0x1015	-19	-30
     }
 
     FRAME "" // Index = 22, FModules = 1
     {
         0x2016
-        FM	0x1016	-32	-26
+        FM	0x1016	-23	-26
     }
 
     FRAME "" // Index = 23, FModules = 1
     {
         0x2017
-        FM	0x1017	-34	-20
+        FM	0x1017	-25	-22
     }
 
     FRAME "" // Index = 24, FModules = 1
     {
         0x2018
-        FM	0x1018	-35	-20
+        FM	0x1018	-29	-21
     }
 
     FRAME "" // Index = 25, FModules = 1
     {
         0x2019
-        FM	0x1019	-34	-9
+        FM	0x1019	-32	-9
     }
 
     FRAME "" // Index = 26, FModules = 1
@@ -355,28 +355,43 @@
         AF	0x2029	1	0	0
     }
 
-    ANIM "climb" // Index = 1, AFrames = 8
+    ANIM "climb" // Index = 1, AFrames = 16
     {
         0x3004
         AF	0x2009	1	0	0
+        AF	0x2009	1	0	0
+        AF	0x200A	1	0	0
         AF	0x200A	1	0	0
         AF	0x200B	1	0	0
+        AF	0x200B	1	0	0
+        AF	0x200C	1	0	0
         AF	0x200C	1	0	0
         AF	0x200D	1	0	0
+        AF	0x200D	1	0	0
+        AF	0x200E	1	0	0
         AF	0x200E	1	0	0
         AF	0x200F	1	0	0
+        AF	0x200F	1	0	0
+        AF	0x2010	1	0	0
         AF	0x2010	1	0	0
     }
 
-    ANIM "pushup" // Index = 2, AFrames = 7
+    ANIM "pushup" // Index = 2, AFrames = 14
     {
         0x3005
         AF	0x201B	1	0	0
+        AF	0x201B	1	0	0
+        AF	0x201C	1	0	0
         AF	0x201C	1	0	0
         AF	0x201D	1	0	0
+        AF	0x201D	1	0	0
+        AF	0x201E	1	0	0
         AF	0x201E	1	0	0
         AF	0x201F	1	0	0
+        AF	0x201F	1	0	0
         AF	0x2020	1	0	0
+        AF	0x2020	1	0	0
+        AF	0x2021	1	0	0
         AF	0x2021	1	0	0
     }
 
@@ -399,21 +414,30 @@
         AF	0x2029	1	0	0
     }
 
-    ANIM "attack" // Index = 5, AFrames = 9
+    ANIM "attack" // Index = 5, AFrames = 18
     {
         0x3003
         AF	0x2000	1	0	0
+        AF	0x2000	1	0	0
+        AF	0x2001	1	0	0
         AF	0x2001	1	0	0
         AF	0x2002	1	0	0
+        AF	0x2002	1	0	0
+        AF	0x2003	1	0	0
         AF	0x2003	1	0	0
         AF	0x2004	1	0	0
+        AF	0x2004	1	0	0
+        AF	0x2005	1	0	0
         AF	0x2005	1	0	0
         AF	0x2006	1	0	0
+        AF	0x2006	1	0	0
         AF	0x2007	1	0	0
+        AF	0x2007	1	0	0
+        AF	0x2008	1	0	0
         AF	0x2008	1	0	0
     }
 
-    ANIM "dying" // Index = 6, AFrames = 9
+    ANIM "dying" // Index = 6, AFrames = 14
     {
         0x3002
         AF	0x2011	1	0	0
@@ -425,6 +449,11 @@
         AF	0x2017	1	0	0
         AF	0x2018	1	0	0
         AF	0x2019	1	0	0
+        AF	0x2018	1	0	0
+        AF	0x2017	1	0	0
+        AF	0x2016	1	0	0
+        AF	0x2015	1	0	0
+        AF	0x2014	1	0	0
     }
 
     SPRITE_END

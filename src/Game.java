@@ -14,6 +14,7 @@ import java.util.Vector;
 #include "Buttons.h"
 #include "KnightAnim.h"
 #include "MeleeAnim.h"
+#include "ProjectilesAnim.h"
 
 class Game implements CommandListener
 {

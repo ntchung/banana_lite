@@ -26,6 +26,10 @@ class ProjectilesManager
 		Instance = this;
 		
 		listProjectiles = new Projectile[MAX_PROJECTILES];
+		for( int i=0; i<MAX_PROJECTILES; ++i )
+		{
+			listProjectiles[i] = new Projectile();
+		}
 		projectilesCount = 0;
 	}
 	
@@ -47,9 +51,17 @@ class ProjectilesManager
 	
 	public void update()
 	{		
-		for( int i=0; i<projectilesCount; ++i )
+		for( int i=0; i<projectilesCount; )
 		{
-			listProjectiles[i].update();			
+			if( listProjectiles[i].update() )
+			{
+				++i;
+			}
+			else
+			{
+				listProjectiles[i].Copy( listProjectiles[projectilesCount-1] );
+				--projectilesCount;
+			}
 		}		
 	}	
 	
@@ -63,6 +75,11 @@ class ProjectilesManager
 	
 	public Projectile create(int type, int x, int y)
 	{
+		if( projectilesCount == MAX_PROJECTILES )
+		{
+			return null;
+		}
+	
 		Projectile prj = listProjectiles[projectilesCount];
 		++projectilesCount;
 		
@@ -71,47 +88,34 @@ class ProjectilesManager
 	}
 	
 	public int serialize(byte[] data, int offset)
-	{
-	/*
-		int count = 0;
-		for( int i=0; i<MAX_ENEMIES; ++i )
-		{
-			if( listEnemies[i].isActive )
-			{
-				++count;
-			}
-		}
-		
-		data[offset+0] = (byte)count;
+	{		
+		data[offset] = (byte)projectilesCount;
 		++offset;
 		
-		for( int i=0; i<MAX_ENEMIES; ++i )
+		for( int i=0; i<projectilesCount; ++i )
 		{
-			if( listEnemies[i].isActive )
-			{
-				offset = listEnemies[i].serialize(data, offset);
-			}
+			offset = listProjectiles[i].serialize(data, offset);		
 		}
-	*/
+		
 		return offset;
 	}
 	
 	public int deserialize(byte[] data, int offset)
 	{	
-		/*if( data != null )
+		if( data != null )
 		{			
-			int count = data[offset+0];
-			++offset;
+			projectilesCount = data[offset+0];
+			++offset;			
 			
-			for( int i=0; i<count; ++i )
+			for( int i=0; i<projectilesCount; ++i )
 			{
-				offset = listEnemies[i].deserialize(data, offset);
+				offset = listProjectiles[i].deserialize(data, offset);
 			}
 		
 			return offset;
 		}
-		*/
-		return offset;
+		
+		return 0;
 	}
 	
 	public ASprites mainSprite;

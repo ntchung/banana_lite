@@ -54,7 +54,7 @@ class EnemiesManager
 			loadSprite( TYPE_GOBLIN, "/goblin.png", "/goblin.dat" );
 			
 			EnemyPropertiesPool = new EnemyProperties[TYPE_NUM];
-			EnemyPropertiesPool[TYPE_GOBLIN] = new EnemyProperties(32);
+			EnemyPropertiesPool[TYPE_GOBLIN] = new EnemyProperties((2 << 4), (2 <<4), (22 << 4), (25 << 4), 1, (1 << 4), 32, 48);
 		}
 	}
 	
@@ -94,7 +94,10 @@ class EnemiesManager
 		{
 			if( listEnemies[i].isActive )
 			{
-				listEnemies[i].update();
+				if( !listEnemies[i].update() )
+				{
+					listEnemies[i].isActive = false;
+				}
 			}
 			
 			listEnemiesToPaintBehindWall[i] = null;
@@ -221,6 +224,83 @@ class EnemiesManager
 		return 0;
 	}
 	
+	public int checkHit(int x1, int y1, int x2, int y2, Enemy[] result)
+	{
+		int resultCount = 0;
+		for( int i=0; i<MAX_ENEMIES; ++i )
+		{
+			Enemy enemy = listEnemies[i];
+			if( enemy.isActive && enemy.HP > 0 )
+			{
+				final int enemyX1 = enemy.x - enemy.properties.HalfWidth;
+				final int enemyX2 = enemy.x + enemy.properties.HalfWidth;
+				final int enemyY1 = enemy.y;
+				final int enemyY2 = enemy.y + enemy.properties.Height;
+				
+				if( !( x1 > enemyX2 || x2 < enemyX1 || y1 > enemyY2 || y2 < enemyY1 ) )
+				{
+					result[resultCount] = enemy;
+					++resultCount;
+					if( resultCount >= result.length )
+					{
+						break;
+					}
+				}
+			}
+		}
+		
+		return resultCount;
+	}
+	
+	public Enemy checkHit(int x1, int y1, int x2, int y2)
+	{
+		for( int i=0; i<MAX_ENEMIES; ++i )
+		{
+			Enemy enemy = listEnemies[i];
+			if( enemy.isActive && enemy.HP > 0 )
+			{
+				final int enemyX1 = enemy.x - enemy.properties.HalfWidth;
+				final int enemyX2 = enemy.x + enemy.properties.HalfWidth;
+				final int enemyY1 = enemy.y;
+				final int enemyY2 = enemy.y + enemy.properties.Height;
+				
+				if( !( x1 > enemyX2 || x2 < enemyX1 || y1 > enemyY2 || y2 < enemyY1 ) )
+				{
+					return enemy;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public boolean checkHitWithClimbers(Enemy checker)
+	{
+		for( int i=0; i<MAX_ENEMIES; ++i )
+		{
+			Enemy enemy = listEnemies[i];
+			if( enemy.isActive && enemy != checker && enemy.currentAnim == MeleeAnim.climb )
+			{
+				final int enemyX1 = enemy.x - enemy.properties.HalfWidth;
+				final int enemyX2 = enemy.x + enemy.properties.HalfWidth;
+				final int enemyY1 = enemy.y;
+				final int enemyY2 = enemy.y + enemy.properties.Height;
+				
+				final int checkerX1 = checker.x - checker.properties.HalfWidth;
+				final int checkerX2 = checker.x + checker.properties.HalfWidth;
+				final int checkerY1 = checker.y;
+				final int checkerY2 = checker.y + checker.properties.Height;
+				
+				if( !( checkerX1 > enemyX2 || checkerX2 < enemyX1 || checkerY1 > enemyY2 || checkerY2 < enemyY1 ) )
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	public ASprites[] spritesPool;
 	public byte[][] animFramesCount;
 	
@@ -229,5 +309,5 @@ class EnemiesManager
 	private Enemy[] listEnemiesToPaintBeforeWall;
 	
 	public EnemyProperties[] EnemyPropertiesPool;
-	private Random random;
+	public Random random;
 }

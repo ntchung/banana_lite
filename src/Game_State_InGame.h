@@ -64,6 +64,7 @@ public final void SaveGame(byte[] data, int offset)
 {
 	offset = playerCharacter.serialize(data, offset);
 	offset = enemiesManager.serialize(data, offset);
+	offset = projectilesManager.serialize(data, offset);
 }
 
 public final void LoadGame(byte[] data, int offset)
@@ -72,6 +73,7 @@ public final void LoadGame(byte[] data, int offset)
 	{
 		offset = playerCharacter.deserialize(data, offset);
 		offset = enemiesManager.deserialize(data, offset);
+		offset = projectilesManager.deserialize(data, offset);
 	}
 	catch( Exception ex )
 	{		

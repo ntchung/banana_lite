@@ -12,6 +12,7 @@ cd %RAW_DIR%
 call MakeSprite.exe buttons.sprite buttons.dat -jf Buttons.h
 call MakeSprite.exe knight.sprite knight.dat -ja KnightAnim.h
 call MakeSprite.exe goblin.sprite goblin.dat -ja MeleeAnim.h
+call MakeSprite.exe projectiles.sprite projectiles.dat -ja ProjectilesAnim.h
 
 move *.h %HEADER_DIR%
 cd..\..
