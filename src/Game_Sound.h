@@ -56,7 +56,7 @@ private static final void loadAPSfx()
 		SoundPlayer.LoadSound( "/explode.wav", 11890 , SFX_EXPLODE, SoundPlayer.MIME_AUDIO_WAVE, true );
 		SoundPlayer.LoadSound( "/impact1.wav", 3100, SFX_IMPACT1, SoundPlayer.MIME_AUDIO_WAVE, true );
 		SoundPlayer.LoadSound( "/impact2.wav", 2600, SFX_IMPACT2, SoundPlayer.MIME_AUDIO_WAVE, true );
-		SoundPlayer.LoadSound( "/die.wav", 6400, SFX_DIE, SoundPlayer.MIME_AUDIO_WAVE, true );
+		SoundPlayer.LoadSound( "/die.wav", 6400, SFX_DIE, SoundPlayer.MIME_AUDIO_WAVE, false );
 		
 		waitNextSoundFrame = 0;
 		numChannelsUsedThisFrame = 0;
@@ -102,7 +102,7 @@ public static final void playSfx( int index )
 	}
 	
 	loadAPSfx();	
-	if( !isSoundItemPlayed[index] ) // && numChannelsUsedThisFrame < NUM_SOUND_CHANNELS_PER_FRAME )
+	if( !isSoundItemPlayed[index] && numChannelsUsedThisFrame < NUM_SOUND_CHANNELS_PER_FRAME )
 	{
 		isSoundItemPlayed[index] = true;
 	

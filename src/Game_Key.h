@@ -282,7 +282,7 @@ public void onPointerPressed( int x, int y )
 		if( x < softkeyTouchWidth )
 		{
 			// IGM is located at top left - not handled here
-			if( leftSKType != kSoftkeyIGM )
+			if( leftSKType != kSoftkeyIGM && leftSKType != kSoftkeyNone )
 			{
 				onGameKeyPressed( SOFT_KEY_LEFT );
 				isHandled = true;
@@ -290,8 +290,11 @@ public void onPointerPressed( int x, int y )
 		}
 		else if( x > canvasWidth - softkeyTouchWidth )
 		{
-			onGameKeyPressed( SOFT_KEY_RIGHT );
-			isHandled = true;
+			if( rightSKType != kSoftkeyNone )
+			{
+				onGameKeyPressed( SOFT_KEY_RIGHT );
+				isHandled = true;
+			}
 		}
 	}
 	
@@ -302,24 +305,23 @@ public void onPointerPressed( int x, int y )
 		isHandled = true;	
 	}
 	
-	// TODO
-	
-	/*
-	if( !isHandled )
+	// Handle IGM action buttons
+	if( leftSKType == kSoftkeyIGM && x > canvasWidth - softkeyTouchWidth )
 	{
-		isHandled = checkTouchSelectLevelButtons( true, x, y );
+		if( y > canvasHeight - iconWidth - 8 )
+		{
+			onGameKeyPressed( KEY_8 );
+		}
+		else if( y > canvasHeight - (iconWidth << 1) - 16 )
+		{
+			onGameKeyPressed( KEY_5 );
+		}
 	}
 	
 	if( !isHandled )
 	{
-		isHandled = checkTouchIGM( true, x, y );
-	}
 		
-	if( !isHandled && gameState == k_State_InGame && ( isIGM == 0 ) )	
-	{
-		isHandled = chessBoard.onPointerPressed( x, y );		
-	}	
-	*/
+	}
 	
 	if( !isHandled )	
 	{
@@ -343,7 +345,7 @@ public void onPointerDragged( int x, int y )
 		if( x < softkeyTouchWidth )
 		{
 			// IGM is located at top left - not handled here
-			if( leftSKType != kSoftkeyIGM )
+			if( leftSKType != kSoftkeyIGM && leftSKType != kSoftkeyNone )
 			{
 				onGameKeyPressed( SOFT_KEY_LEFT );
 				isHandled = true;
@@ -351,8 +353,11 @@ public void onPointerDragged( int x, int y )
 		}
 		else if( x > ( canvasWidth - softkeyTouchWidth ) )
 		{
-			onGameKeyPressed( SOFT_KEY_RIGHT );
-			isHandled = true;
+			if( rightSKType != kSoftkeyNone )
+			{
+				onGameKeyPressed( SOFT_KEY_RIGHT );
+				isHandled = true;
+			}
 		}
 		else		
 		{
@@ -368,26 +373,18 @@ public void onPointerDragged( int x, int y )
 		isHandled = true;	
 	}
 	
-	/*if( !isHandled )	
+	// Handle IGM action buttons
+	if( leftSKType == kSoftkeyIGM && x > canvasWidth - softkeyTouchWidth )
 	{
-		onGameKeyReleased( SOFT_KEY_LEFT );
-		onGameKeyReleased( SOFT_KEY_RIGHT );
-		
-		isHandled = checkTouchSelectLevelButtons( true, x, y );
-	}*/
-	
-	// TODO
-	
-	/*if( !isHandled )
-	{
-		isHandled = checkTouchIGM( true, x, y );
+		if( y > canvasHeight - iconWidth - 8 )
+		{
+			onGameKeyPressed( KEY_8 );
+		}
+		else if( y > canvasHeight - (iconWidth << 1) - 16 )
+		{
+			onGameKeyPressed( KEY_5 );
+		}
 	}
-	
-	if( !isHandled && gameState == k_State_InGame && ( isIGM == 0 ) )	
-	{
-		isHandled = chessBoard.onPointerDragged( x, y );		
-	}	
-	*/
 	
 	if( !isHandled )
 	{
@@ -404,6 +401,17 @@ public void onPointerDragged( int x, int y )
 			touchDx = touchX - lastTouchX;
 			touchDy = touchY - lastTouchY;
 		}
+		
+		if( touchDx < 0 )
+		{
+			onGameKeyReleased( KEY_6 );
+			onGameKeyPressed( KEY_4 );
+		}
+		else if( touchDx > 0 )
+		{
+			onGameKeyReleased( KEY_4 );
+			onGameKeyPressed( KEY_6 );
+		}
 	}
 }
 
@@ -411,6 +419,10 @@ public void onPointerReleased( int x, int y )
 {
 	onGameKeyReleased( SOFT_KEY_LEFT );
 	onGameKeyReleased( SOFT_KEY_RIGHT );
+	onGameKeyReleased( KEY_5 );
+	onGameKeyReleased( KEY_8 );
+	onGameKeyReleased( KEY_4 );
+	onGameKeyReleased( KEY_6 );
 		
 	//untouchSelectLevelButtons( x, y );
 	//untouchIGM( x, y );

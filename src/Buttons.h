@@ -18,4 +18,10 @@ class Buttons
 	public final static int SOFT_ARROW_NORMAL = 15;
 	public final static int SOFT_ARROW_HOVER = 16;
 	public final static int SOFT_ARROW_DOWN = 17;
+	public final static int COMMAND_SWORD_NORMAL = 18;
+	public final static int COMMAND_SWORD_HOVER = 19;
+	public final static int COMMAND_SWORD_DOWN = 20;
+	public final static int COMMAND_BOW_NORMAL = 21;
+	public final static int COMMAND_BOW_HOVER = 22;
+	public final static int COMMAND_BOW_DOWN = 23;
 }

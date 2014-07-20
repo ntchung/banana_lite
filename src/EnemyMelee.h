@@ -57,7 +57,8 @@ void updateMeleeAttack()
 			final int fuzzyX = -(targetHalfWidth >> 2) + (Math.abs(EnemiesManager.Instance.random.nextInt()) % (targetHalfWidth >> 1));
 			final int fuzzyY = -(targetHalfHeight >> 2) + (Math.abs(EnemiesManager.Instance.random.nextInt()) % (targetHalfHeight >> 1));
 		
-			ProjectilesManager.Instance.create(ProjectilesAnim.SMALL_HIT, targetX + fuzzyX, PlayerCharacter.Instance.y + targetHalfHeight + fuzzyY);
+			Game.playSfx(properties.AttackPower < 2 ? Game.SFX_IMPACT1 : Game.SFX_IMPACT2);					
+			ProjectilesManager.Instance.create(properties.AttackPower < 2 ? ProjectilesAnim.SMALL_HIT : ProjectilesAnim.BIG_HIT, targetX + fuzzyX, PlayerCharacter.Instance.y + targetHalfHeight + fuzzyY);
 		}		
 	}
 	

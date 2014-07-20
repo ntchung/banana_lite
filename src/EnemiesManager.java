@@ -52,9 +52,14 @@ class EnemiesManager
 			spritesPool = new ASprites[TYPE_NUM];
 			animFramesCount = new byte[TYPE_NUM][];			
 			loadSprite( TYPE_GOBLIN, "/goblin.png", "/goblin.dat" );
+			loadSprite( TYPE_TROLL, "/troll.png", "/troll.dat" );
+			loadSprite( TYPE_RAVEN, "/raven.png", "/raven.dat" );
 			
 			EnemyPropertiesPool = new EnemyProperties[TYPE_NUM];
-			EnemyPropertiesPool[TYPE_GOBLIN] = new EnemyProperties((2 << 4), (2 <<4), (22 << 4), (25 << 4), 1, (1 << 4), 32, 48);
+			//														nMoveSpeed	nClimbSpeed		nWidth			nHeight		nMaxHP	nAttackRange	nAttackPower	nMinDecisionCountdown	nMaxDecisionCountdown
+			EnemyPropertiesPool[TYPE_GOBLIN] = new EnemyProperties(	(2 << 4),	(1 << 4), 		(22 << 4), 		(25 << 4),	1,		(1 << 4),		1,				32,						48);
+			EnemyPropertiesPool[TYPE_TROLL] = new EnemyProperties(	(1 << 4),	(1 << 3), 		(42 << 4), 		(45 << 4),	2,		(4 << 4),		2,				32,						48);
+			EnemyPropertiesPool[TYPE_RAVEN] = new EnemyProperties(	(3 << 4),	0, 				(25 << 4), 		(20 << 4), 	1, 		(1 << 4), 		1,				32, 					48);
 		}
 	}
 	
@@ -84,11 +89,22 @@ class EnemiesManager
 		
 		if( i < MAX_ENEMIES )
 		{
-			listEnemies[i].reset(TYPE_GOBLIN);			
+			listEnemies[i].reset(TYPE_TROLL);			
 			listEnemies[i].x = ((random.nextInt() & 127) < 64 ? WALL_MIN_X : WALL_MAX_X) << 4;			
-			listEnemies[i].y = random.nextInt() & 255;
+			listEnemies[i].y = Math.abs(random.nextInt()) & 255;
+			//listEnemies[i].y = (64 + Math.abs(random.nextInt()) % (Game.wallHeight-128)) << 4;
 			listEnemies[i].flip = listEnemies[i].x < 0 ? Sprite.TRANS_NONE : Sprite.TRANS_MIRROR;
 		}
+		
+		chasingFlyersCount = 0;
+		for( i=0; i<MAX_ENEMIES; ++i )
+		{
+			Enemy enemy = listEnemies[i];
+			if( enemy.isActive && enemy.type == TYPE_RAVEN && enemy.currentAnim == FlyerAnim.chase )
+			{
+				++chasingFlyersCount;
+			}
+		}				
 		
 		for( i=0; i<MAX_ENEMIES; ++i )
 		{
@@ -220,9 +236,9 @@ class EnemiesManager
 		
 			return offset;
 		}
-		
+				
 		return 0;
-	}
+	}	
 	
 	public int checkHit(int x1, int y1, int x2, int y2, Enemy[] result)
 	{
@@ -248,7 +264,7 @@ class EnemiesManager
 				}
 			}
 		}
-		
+				
 		return resultCount;
 	}
 	
@@ -258,6 +274,28 @@ class EnemiesManager
 		{
 			Enemy enemy = listEnemies[i];
 			if( enemy.isActive && enemy.HP > 0 )
+			{
+				final int enemyX1 = enemy.x - enemy.properties.HalfWidth;
+				final int enemyX2 = enemy.x + enemy.properties.HalfWidth;
+				final int enemyY1 = enemy.y;
+				final int enemyY2 = enemy.y + enemy.properties.Height;
+				
+				if( !( x1 > enemyX2 || x2 < enemyX1 || y1 > enemyY2 || y2 < enemyY1 ) )
+				{
+					return enemy;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public Enemy checkHitBeforeWall(int x1, int y1, int x2, int y2)
+	{
+		for( int i=0; i<MAX_ENEMIES; ++i )
+		{
+			Enemy enemy = listEnemies[i];
+			if( enemy.isActive && !enemy.isBehindWall && enemy.HP > 0 )
 			{
 				final int enemyX1 = enemy.x - enemy.properties.HalfWidth;
 				final int enemyX2 = enemy.x + enemy.properties.HalfWidth;
@@ -310,4 +348,6 @@ class EnemiesManager
 	
 	public EnemyProperties[] EnemyPropertiesPool;
 	public Random random;
+	
+	public int chasingFlyersCount;
 }

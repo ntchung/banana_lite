@@ -5,15 +5,15 @@
     VERSION 0001
 
     // Images:  1
-    // Modules: 18
-    // Frames:  18
+    // Modules: 24
+    // Frames:  24
     // Anims:   0
 
 ////////////////////////////////////////////////////////////////////////////////
 // Images...
 // <Image> := IMAGE [id] "file" [ALPHA "alpha_file"] [TRANSP transp_color]
 
-    IMAGE 0x0000 ".\buttons.png" TRANSP 0x00FF00FF // 0  size: 156 x 280  palettes: 1
+    IMAGE 0x0000 ".\buttons.png" TRANSP 0x00FF00FF // 0  size: 156 x 362  palettes: 1
 
 ////////////////////////////////////////////////////////////////////////////////
 // Modules...
@@ -48,6 +48,12 @@
         MD	0x100C	MD_IMAGE	0	0	240	42	38
         MD	0x100D	MD_IMAGE	0	42	240	42	38
         MD	0x100E	MD_IMAGE	0	84	240	42	38
+        MD	0x1012	MD_IMAGE	0	0	278	42	42
+        MD	0x1013	MD_IMAGE	0	42	278	42	42
+        MD	0x1014	MD_IMAGE	0	84	278	42	42
+        MD	0x1015	MD_IMAGE	0	0	320	42	42
+        MD	0x1016	MD_IMAGE	0	42	320	42	42
+        MD	0x1017	MD_IMAGE	0	84	320	42	42
         MD	0x100F	MD_IMAGE	0	128	127	24	24
         MD	0x1010	MD_IMAGE	0	128	151	24	24
         MD	0x1011	MD_IMAGE	0	128	175	24	24
@@ -166,6 +172,42 @@
     {
         0x2011
         FM	0x1011	-18	-6
+    }
+
+    FRAME "COMMAND_SWORD_NORMAL" // Index = 18, FModules = 1
+    {
+        0x2012
+        FM	0x1012	-21	-19
+    }
+
+    FRAME "COMMAND_SWORD_HOVER" // Index = 19, FModules = 1
+    {
+        0x2013
+        FM	0x1013	-21	-19
+    }
+
+    FRAME "COMMAND_SWORD_DOWN" // Index = 20, FModules = 1
+    {
+        0x2014
+        FM	0x1014	-21	-19
+    }
+
+    FRAME "COMMAND_BOW_NORMAL" // Index = 21, FModules = 1
+    {
+        0x2015
+        FM	0x1015	-21	-19
+    }
+
+    FRAME "COMMAND_BOW_HOVER" // Index = 22, FModules = 1
+    {
+        0x2016
+        FM	0x1016	-21	-19
+    }
+
+    FRAME "COMMAND_BOW_DOWN" // Index = 23, FModules = 1
+    {
+        0x2017
+        FM	0x1017	-21	-19
     }
 
     SPRITE_END

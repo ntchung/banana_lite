@@ -555,10 +555,10 @@ class SoundPlayer implements Runnable
 				s_Player[channel] = javax.microedition.media.Manager.createPlayer( new java.io.ByteArrayInputStream(s_sndSlot[index]), k_MIME[s_sndType[index]] );
 
 				// realize player
-				s_Player[channel].realize();
+				//s_Player[channel].realize();
 
 				// prefetch player
-				s_Player[channel].prefetch();
+				//s_Player[channel].prefetch();
 			}
 		}
 		catch( Exception ex )

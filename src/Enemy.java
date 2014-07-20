@@ -14,6 +14,7 @@ import java.util.Vector;
 class Enemy
 {
 	#include "EnemyMelee.h"
+	#include "EnemyFlyer.h"
 
 	public Enemy()
 	{
@@ -39,8 +40,7 @@ class Enemy
 		currentFrameFraction = 0;
 		flip = Sprite.TRANS_NONE;	
 		
-		decisionCountdown = properties.MinDecisionCountdown + (Math.abs(EnemiesManager.Instance.random.nextInt()) % (properties.MaxDecisionCountdown - properties.MinDecisionCountdown + 1));
-		decisionX = (-Game.halfCanvasWidth + (Math.abs(EnemiesManager.Instance.random.nextInt()) % Game.canvasWidth)) << 4;
+		redecide();
 	}
 
 	public boolean update()
@@ -52,6 +52,10 @@ class Enemy
 		case EnemiesManager.TYPE_GOBLIN:
 		case EnemiesManager.TYPE_TROLL:
 			res = updateMelee();
+			break;
+			
+		case EnemiesManager.TYPE_RAVEN:
+			res = updateFlyer();
 			break;
 		}
 	
@@ -85,6 +89,8 @@ class Enemy
 		// serialized
 		if( data != null )
 		{
+			redecide();
+		
 			type = data[offset];
 			++offset;
 			currentAnim = data[offset];
@@ -109,8 +115,7 @@ class Enemy
 			isActive = true;			
 			sprite = EnemiesManager.Instance.spritesPool[type];
 			animFramesCount = EnemiesManager.Instance.animFramesCount[type];
-			properties = EnemiesManager.Instance.EnemyPropertiesPool[type];
-			decisionX = (-Game.halfCanvasWidth + (Math.abs(EnemiesManager.Instance.random.nextInt()) % Game.canvasWidth)) << 4;			
+			properties = EnemiesManager.Instance.EnemyPropertiesPool[type];			
 			
 			// new offset
 			return offset;
@@ -149,12 +154,18 @@ class Enemy
 		HP -= damage;
 	}
 	
+	private void redecide()
+	{
+		decisionCountdown = properties.MinDecisionCountdown + (Math.abs(EnemiesManager.Instance.random.nextInt()) % (properties.MaxDecisionCountdown - properties.MinDecisionCountdown + 1));
+		decisionX = (-(Game.halfCanvasWidth - 10) + (Math.abs(EnemiesManager.Instance.random.nextInt()) % (Game.canvasWidth - 20))) << 4;
+	}
+	
 	public boolean isActive;	
 	public boolean isBehindWall;
 	
 	private ASprites sprite;
 	private byte[] animFramesCount;
-	private int type;
+	public int type;
 	public int currentAnim;
 	private int currentFrame;
 	private int currentFrameFraction;

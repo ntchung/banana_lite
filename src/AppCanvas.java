@@ -30,8 +30,8 @@ class AppCanvas extends GameCanvas
 
 		setFullScreenMode( true );
 		
-		//Game.hasTouch = hasPointerEvents();
-		Game.hasTouch = false;
+		Game.hasTouch = hasPointerEvents();
+		//Game.hasTouch = false;
 		
 		game = new Game( this );
 		game.setSize( this.getWidth(), this.getHeight() );			

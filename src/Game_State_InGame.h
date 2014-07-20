@@ -48,16 +48,33 @@ private void paintInGame()
 		
 	enemiesManager.paintBeforeWall(currentGraphics);
 	projectilesManager.paint(currentGraphics);
-}
-
-private final boolean checkTouchIGM( boolean isDown, int x, int y )
-{
-	return false;
-}
-
-private final void untouchIGM( int x, int y )
-{
 	
+	// paint action buttons
+	if( hasTouch )
+	{
+		int x, y;
+	
+		x = canvasWidth - (iconWidth >> 1);
+		y = canvasHeight - (iconWidth >> 1) - 8;
+		if( Game.isKeyDown( Game.KEY_8 ) || Game.isKeyDown( Game.KEY_DOWN ) )
+		{			
+			sprButtons.drawSpriteFrame( Buttons.COMMAND_BOW_DOWN, x, y );			
+		}
+		else
+		{
+			sprButtons.drawSpriteFrame( Buttons.COMMAND_BOW_NORMAL, x, y );			
+		}
+		
+		y -= iconWidth + 16;
+		if( Game.isKeyDown( Game.KEY_5 ) || Game.isKeyDown( Game.KEY_CENTER ) )
+		{			
+			sprButtons.drawSpriteFrame( Buttons.COMMAND_SWORD_DOWN, x, y );			
+		}
+		else
+		{
+			sprButtons.drawSpriteFrame( Buttons.COMMAND_SWORD_NORMAL, x, y );			
+		}
+	}	
 }
 
 public final void SaveGame(byte[] data, int offset)

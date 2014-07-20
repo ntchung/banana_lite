@@ -48,6 +48,8 @@ class Projectile
 			case ProjectilesAnim.ARROW_HIT:
 			case ProjectilesAnim.SMALL_HIT:
 			case ProjectilesAnim.SLASH_HIT:
+			case ProjectilesAnim.RAVEN_HIT:
+			case ProjectilesAnim.BIG_HIT:
 				res = updateExplosion();
 			break;
 		}

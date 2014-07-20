@@ -96,10 +96,12 @@ class PlayerCharacter
 		}
 		else if( Game.isKeyDown( Game.KEY_8 ) || Game.isKeyDown( Game.KEY_DOWN ) )
 		{
+			Game.playSfx(Game.SFX_SHOOT);
 			changeAnim(KnightAnim.attack_bow);
 		}
 		else if( Game.isKeyDown( Game.KEY_5 ) || Game.isKeyDown( Game.KEY_CENTER ) )
 		{
+			Game.playSfx(Game.SFX_SWORD);
 			changeAnim(KnightAnim.attack_sword);
 		}
 	}
@@ -118,10 +120,12 @@ class PlayerCharacter
 		}
 		else if( Game.isKeyDown( Game.KEY_8 ) || Game.isKeyDown( Game.KEY_DOWN ) )
 		{
+			Game.playSfx(Game.SFX_SHOOT);
 			changeAnim(KnightAnim.attack_bow);
 		}
 		else if( Game.isKeyDown( Game.KEY_5 ) || Game.isKeyDown( Game.KEY_CENTER ) )
 		{
+			Game.playSfx(Game.SFX_SWORD);
 			changeAnim(KnightAnim.attack_sword);
 		}
 	}
@@ -176,6 +180,11 @@ class PlayerCharacter
 				Projectile prj = ProjectilesManager.Instance.create(ProjectilesAnim.SLASH_HIT, hitEnemy.x + fuzzyX, hitEnemy.y + targetHalfHeight + fuzzyY);
 				prj.flip = this.flip;
 			}
+			
+			if( hitCount > 0 )
+			{
+				Game.playSfx(Game.SFX_IMPACT1);
+			}
 		}
 	
 		if( Game.isKeyDown( Game.KEY_5 ) || Game.isKeyDown( Game.KEY_CENTER ) )
@@ -209,9 +218,9 @@ class PlayerCharacter
 	{
 		if( Game.isKeyDown( Game.KEY_LEFT ) || Game.isKeyDown( Game.KEY_4 ) )
 		{
-			if( accelerate > -16 )
+			if( accelerate > -24 )
 			{
-				accelerate = -16;				
+				accelerate = -24;				
 			}
 			else
 			{
@@ -227,9 +236,9 @@ class PlayerCharacter
 		}		
 		else if( Game.isKeyDown( Game.KEY_RIGHT ) || Game.isKeyDown( Game.KEY_6 ) )
 		{
-			if( accelerate < 16 )
+			if( accelerate < 24 )
 			{
-				accelerate = 16;				
+				accelerate = 24;				
 			}
 			else
 			{
