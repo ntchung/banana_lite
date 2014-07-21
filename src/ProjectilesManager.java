@@ -17,7 +17,7 @@ class ProjectilesManager
 	public static final int TYPE_ARROW = 0;	
 	public static final int TYPE_NUM = 1;
 	
-	private static final int MAX_PROJECTILES = 100;
+	private static final int MAX_PROJECTILES = 200;
 		
 	public static ProjectilesManager Instance = null;
 	

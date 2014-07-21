@@ -14,7 +14,10 @@ import java.util.Vector;
 class Enemy
 {
 	#include "EnemyMelee.h"
+	#include "EnemyCrawler.h"
 	#include "EnemyFlyer.h"
+	#include "EnemyThrower.h"
+	#include "EnemyShaman.h"
 
 	public Enemy()
 	{
@@ -51,12 +54,24 @@ class Enemy
 		{
 		case EnemiesManager.TYPE_GOBLIN:
 		case EnemiesManager.TYPE_TROLL:
+		case EnemiesManager.TYPE_OGRE:		
 			res = updateMelee();
+			break;
+		case EnemiesManager.TYPE_SPIDER:
+			res = updateCrawler();
 			break;
 			
 		case EnemiesManager.TYPE_RAVEN:
 			res = updateFlyer();
 			break;
+			
+		case EnemiesManager.TYPE_THROWER:
+			res = updateThrower();
+			break;			
+			
+		case EnemiesManager.TYPE_SHAMAN:
+			res = updateShaman();
+			break;			
 		}
 	
 		++currentFrameFraction;

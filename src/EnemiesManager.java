@@ -53,13 +53,21 @@ class EnemiesManager
 			animFramesCount = new byte[TYPE_NUM][];			
 			loadSprite( TYPE_GOBLIN, "/goblin.png", "/goblin.dat" );
 			loadSprite( TYPE_TROLL, "/troll.png", "/troll.dat" );
+			loadSprite( TYPE_OGRE, "/ogre.png", "/ogre.dat" );
 			loadSprite( TYPE_RAVEN, "/raven.png", "/raven.dat" );
+			loadSprite( TYPE_SPIDER, "/spider.png", "/spider.dat" );
+			loadSprite( TYPE_THROWER, "/thrower.png", "/thrower.dat" );
+			loadSprite( TYPE_SHAMAN, "/shaman.png", "/shaman.dat" );
 			
 			EnemyPropertiesPool = new EnemyProperties[TYPE_NUM];
 			//														nMoveSpeed	nClimbSpeed		nWidth			nHeight		nMaxHP	nAttackRange	nAttackPower	nMinDecisionCountdown	nMaxDecisionCountdown
 			EnemyPropertiesPool[TYPE_GOBLIN] = new EnemyProperties(	(2 << 4),	(1 << 4), 		(22 << 4), 		(25 << 4),	1,		(1 << 4),		1,				32,						48);
-			EnemyPropertiesPool[TYPE_TROLL] = new EnemyProperties(	(1 << 4),	(1 << 3), 		(42 << 4), 		(45 << 4),	2,		(4 << 4),		2,				32,						48);
+			EnemyPropertiesPool[TYPE_TROLL] = new EnemyProperties(	(1 << 4),	(1 << 4), 		(42 << 4), 		(45 << 4),	2,		(3 << 4),		2,				32,						48);
 			EnemyPropertiesPool[TYPE_RAVEN] = new EnemyProperties(	(3 << 4),	0, 				(25 << 4), 		(20 << 4), 	1, 		(1 << 4), 		1,				32, 					48);
+			EnemyPropertiesPool[TYPE_OGRE] = new EnemyProperties(	(1 << 4),	(1 << 3), 		(40 << 4), 		(40 << 4),	5,		(8 << 4),		3,				32,						48);
+			EnemyPropertiesPool[TYPE_SPIDER] = new EnemyProperties(	(2 << 4),	(1<<4)+(1<<3), 	(20 << 4), 		(20 << 4),	1,		(1 << 4),		1,				32,						48);
+			EnemyPropertiesPool[TYPE_THROWER] = new EnemyProperties((1 << 4),	0,		 		(24 << 4), 		(27 << 4),	1,		0,				1,				32,						48);
+			EnemyPropertiesPool[TYPE_SHAMAN] = new EnemyProperties( (1 << 4),	0,		 		(24 << 4), 		(27 << 4),	1,		0,				1,				32,						48);
 		}
 	}
 	
@@ -89,7 +97,7 @@ class EnemiesManager
 		
 		if( i < MAX_ENEMIES )
 		{
-			listEnemies[i].reset(TYPE_TROLL);			
+			listEnemies[i].reset(TYPE_SHAMAN);			
 			listEnemies[i].x = ((random.nextInt() & 127) < 64 ? WALL_MIN_X : WALL_MAX_X) << 4;			
 			listEnemies[i].y = Math.abs(random.nextInt()) & 255;
 			//listEnemies[i].y = (64 + Math.abs(random.nextInt()) % (Game.wallHeight-128)) << 4;

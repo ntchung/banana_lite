@@ -15,6 +15,8 @@ class Projectile
 {
 	#include "ProjectileArrow.h"
 	#include "ProjectileExplosion.h"
+	#include "ProjectileGrenade.h"
+	#include "ProjectileDart.h"
 
 	public Projectile()
 	{
@@ -45,11 +47,21 @@ class Projectile
 				res = updateArrow();
 			break;
 			
+			case ProjectilesAnim.GRENADE:
+				res = updateGrenade();
+			break;
+			
+			case ProjectilesAnim.DART:
+				res = updateDart();
+			break;
+			
 			case ProjectilesAnim.ARROW_HIT:
 			case ProjectilesAnim.SMALL_HIT:
 			case ProjectilesAnim.SLASH_HIT:
 			case ProjectilesAnim.RAVEN_HIT:
 			case ProjectilesAnim.BIG_HIT:
+			case ProjectilesAnim.GRENADE_HIT:
+			case ProjectilesAnim.DART_HIT:
 				res = updateExplosion();
 			break;
 		}
@@ -83,6 +95,8 @@ class Projectile
 			offset += 2;
 			y = Util.bytes2Short(data, offset);
 			offset += 2;
+			dx = Util.bytes2Short(data, offset);
+			offset += 2;
 			flip = data[offset] == 0 ? Sprite.TRANS_NONE : Sprite.TRANS_MIRROR;
 			++offset;
 						
@@ -107,6 +121,8 @@ class Projectile
 		offset += 2;
 		Util.short2Bytes(data, offset, y);		
 		offset += 2;
+		Util.short2Bytes(data, offset, dx);		
+		offset += 2;		
 		data[offset] = (byte)(flip == Sprite.TRANS_NONE ? 0 : 1);
 		++offset;
 		
@@ -122,6 +138,7 @@ class Projectile
 		this.currentFrameFraction = other.currentFrameFraction;
 		this.x = other.x;
 		this.y = other.y;
+		this.dx = other.dx;
 		this.flip = other.flip;
 	}
 	
@@ -134,4 +151,5 @@ class Projectile
 	public int x;
 	public int y;
 	public int flip;
+	public int dx;
 }

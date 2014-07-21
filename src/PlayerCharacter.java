@@ -325,6 +325,16 @@ class PlayerCharacter
 		HP -= damage;
 	}
 	
+	public boolean checkHit(int x1, int y1, int x2, int y2)
+	{
+		final int enemyX1 = x - HalfWidth;
+		final int enemyX2 = x + HalfWidth;
+		final int enemyY1 = y;
+		final int enemyY2 = y + (HalfHeight << 1);
+		
+		return( !( x1 > enemyX2 || x2 < enemyX1 || y1 > enemyY2 || y2 < enemyY1 ) );		
+	}
+	
 	private int[] animFramesCount = new int[7]; 
 	
 	private ASprites sprite;
