@@ -5,7 +5,7 @@ package PACKAGE_NAME;
 
 class EnemyProperties
 {
-	public EnemyProperties(int nMoveSpeed, int nClimbSpeed, int nWidth, int nHeight, int nMaxHP, int nAttackRange, int nAttackPower, int nMinDecisionCountdown, int nMaxDecisionCountdown)
+	public EnemyProperties(int nMoveSpeed, int nClimbSpeed, int nWidth, int nHeight, int nMaxHP, int nAttackRange, int nAttackPower, int nMinDecisionCountdown, int nMaxDecisionCountdown, int nScore, int nTechLevel)
 	{
 		MoveSpeed = nMoveSpeed;
 		ClimbSpeed = nClimbSpeed;
@@ -18,6 +18,9 @@ class EnemyProperties
 		HalfWidth = Width >> 1;
 		MinDecisionCountdown = nMinDecisionCountdown;
 		MaxDecisionCountdown = nMaxDecisionCountdown;
+		
+		Score = nScore;
+		TechLevel = nTechLevel;
 	}
 
 	public int MoveSpeed;
@@ -31,4 +34,7 @@ class EnemyProperties
 	public int MaxHP;
 	public int MinDecisionCountdown;
 	public int MaxDecisionCountdown;
+	
+	public int Score;
+	public int TechLevel;
 }

@@ -10,6 +10,7 @@ boolean updateMelee()
 	{
 		currentAnim = MeleeAnim.dying;
 		isBehindWall = false;
+		PlayerCharacter.Instance.score += properties.Score;
 		return true;
 	}
 
@@ -59,6 +60,8 @@ void updateMeleeAttack()
 		
 			Game.playSfx(properties.AttackPower < 2 ? Game.SFX_IMPACT1 : Game.SFX_IMPACT2);					
 			ProjectilesManager.Instance.create(properties.AttackPower < 2 ? ProjectilesAnim.SMALL_HIT : ProjectilesAnim.BIG_HIT, targetX + fuzzyX, PlayerCharacter.Instance.y + targetHalfHeight + fuzzyY);
+			
+			PlayerCharacter.Instance.takeHit(1);
 		}		
 	}
 	

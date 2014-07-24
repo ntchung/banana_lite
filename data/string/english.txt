@@ -27,8 +27,8 @@ STR_HELP	Help
 STR_LANGUAGE	Language
 STR_PLAY	Play
 STR_RESUME	Resume
-STR_ABOUT_0	Castle Attack\n\nversion \v\n\n(c) Kinoa Studios\n\nContact us:\nkinoastudios@yahoo.com
-STR_HELP_0	Help 0.
+STR_ABOUT_0	About\n\nCastle Attack\n\nversion \v\n\n(c) Kinoa Studios\n\nContact us:\nkinoastudios@yahoo.com
+STR_HELP_0	Help\n\nSurvive the onslaught of monsters as long as you can!\n\nUse keys 4 and 6 to move ; 8 to shoot ; 5 to slash with sword.\n\nDrag touch left and right to move ; Touch on buttons to shoot or slash.
 STR_PRESS_ANY_KEY_OR_TOUCH	Press any key or touch screen to continue
 STR_ALL	aáàảãạăắằẳẵặâấầẩẫậeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵbcdfghijklmnopqrstuvwxyz0123456789`-=\[];',./<>?:"{}|+_)(*&^%$#@!~
 STR_TOTAL	.

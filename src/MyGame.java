@@ -77,6 +77,7 @@ public class MyGame extends MIDlet
 		{
 			if( myCanvas.game != null )
 			{
+				myCanvas.game.saveProfile();
 				myCanvas.game.saveGameData();
 			}
 			myCanvas.stopApp();

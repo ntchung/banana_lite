@@ -71,7 +71,7 @@ private boolean loadProfile()
 	return true;
 }
 
-private void saveProfile()
+public void saveProfile()
 {
 	byte[] data = new byte[recordSize];
 	
@@ -106,6 +106,14 @@ private boolean loadGameData()
 	}
 	
 	return true;
+}
+
+public void clearGameData()
+{
+	byte[] data = new byte[1];
+	data[0] = 0;
+	rmsWrite( recordName, 2, data );
+	data = null;
 }
 
 public void saveGameData()

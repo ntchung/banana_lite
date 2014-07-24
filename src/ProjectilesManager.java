@@ -30,6 +30,10 @@ class ProjectilesManager
 		{
 			listProjectiles[i] = new Projectile();
 		}
+	}
+	
+	public void reset()
+	{
 		projectilesCount = 0;
 	}
 	

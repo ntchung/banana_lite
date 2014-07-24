@@ -20,10 +20,25 @@ class PlayerCharacter
 		Instance = this;
 	
 		sprite = null;
-		HP = 10;
 		HalfWidth = 15 << 4;
 		HalfHeight = 20 << 4;
 		AttackRange = 15 << 4;
+		
+		reset();
+	}
+	
+	public void reset()
+	{
+		HP = 10;
+		score = 0;
+		
+		x = 0;
+		y = Game.wallHeight << 4;		
+		currentAnim = KnightAnim.idle_bow;
+		currentFrame = 0;
+		currentFrameFraction = 0;
+		accelerate = 0;
+		flip = Sprite.TRANS_NONE;
 	}
 
 	public void loadAssets()
@@ -38,10 +53,25 @@ class PlayerCharacter
 				animFramesCount[i] = sprite.getAnimFrameCount(i);
 			}
 		}		
+		
+		//y = Game.wallHeight << 4;
 	}
 
-	public void update()
+	public boolean update()
 	{	
+		if( currentAnim == KnightAnim.dying )
+		{
+			return updateDying();
+		}
+	
+		if( HP <= 0 )
+		{
+			Game.Instance.clearGameData();
+			Game.playSfx(Game.SFX_DIE);
+			currentAnim = KnightAnim.dying;
+			return true;
+		}
+	
 		switch( currentAnim )
 		{
 			case KnightAnim.idle_bow:
@@ -75,11 +105,25 @@ class PlayerCharacter
 			currentFrame = (currentFrame + 1) % animFramesCount[currentAnim];		
 			currentFrameFraction = 0;
 		}
+		
+		return true;
 	}
 	
 	public void paint(Graphics g)
 	{
 		sprite.drawSpriteAnimFrame(currentAnim, currentFrame, Game.halfCanvasWidth + (x >> 4), Game.canvasHeight - (y >> 4), flip);
+	}
+	
+	private boolean updateDying()
+	{
+		++currentFrameFraction;
+		if( currentFrameFraction > 1 )
+		{
+			++currentFrame;		
+			currentFrameFraction = 0;
+		}
+		
+		return ( currentFrame < animFramesCount[currentAnim]-1 );
 	}
 	
 	private void updateIdleSword()
@@ -282,15 +326,6 @@ class PlayerCharacter
 	
 	public int deserialize(byte[] data, int offset)
 	{
-		// default
-		x = 0;
-		y = Game.wallHeight << 4;		
-		currentAnim = KnightAnim.idle_bow;
-		currentFrame = 0;
-		currentFrameFraction = 0;
-		accelerate = 0;
-		flip = Sprite.TRANS_NONE;
-
 		// serialized
 		if( data != null )
 		{
@@ -350,7 +385,9 @@ class PlayerCharacter
 	public int y;
 	private int flip;
 	private int accelerate;
-	private int HP;
+	public int HP;
+	
+	public int score;
 	
 	private Enemy[] hitResult = new Enemy[8];
 }

@@ -43,6 +43,19 @@ class EnemiesManager
 		{
 			listEnemies[i] = new Enemy();
 		}
+		
+		reset();
+	}
+	
+	public void reset()
+	{
+		for( int i=0; i<MAX_ENEMIES; ++i )
+		{
+			listEnemies[i].isActive = false;
+		}
+		
+		spawnGeneration = 1;
+		spawnLevel = 1;
 	}
 	
 	public void loadAssets()
@@ -60,14 +73,15 @@ class EnemiesManager
 			loadSprite( TYPE_SHAMAN, "/shaman.png", "/shaman.dat" );
 			
 			EnemyPropertiesPool = new EnemyProperties[TYPE_NUM];
-			//														nMoveSpeed	nClimbSpeed		nWidth			nHeight		nMaxHP	nAttackRange	nAttackPower	nMinDecisionCountdown	nMaxDecisionCountdown
-			EnemyPropertiesPool[TYPE_GOBLIN] = new EnemyProperties(	(2 << 4),	(1 << 4), 		(22 << 4), 		(25 << 4),	1,		(1 << 4),		1,				32,						48);
-			EnemyPropertiesPool[TYPE_TROLL] = new EnemyProperties(	(1 << 4),	(1 << 4), 		(42 << 4), 		(45 << 4),	2,		(3 << 4),		2,				32,						48);
-			EnemyPropertiesPool[TYPE_RAVEN] = new EnemyProperties(	(3 << 4),	0, 				(25 << 4), 		(20 << 4), 	1, 		(1 << 4), 		1,				32, 					48);
-			EnemyPropertiesPool[TYPE_OGRE] = new EnemyProperties(	(1 << 4),	(1 << 3), 		(40 << 4), 		(40 << 4),	5,		(8 << 4),		3,				32,						48);
-			EnemyPropertiesPool[TYPE_SPIDER] = new EnemyProperties(	(2 << 4),	(1<<4)+(1<<3), 	(20 << 4), 		(20 << 4),	1,		(1 << 4),		1,				32,						48);
-			EnemyPropertiesPool[TYPE_THROWER] = new EnemyProperties((1 << 4),	0,		 		(24 << 4), 		(27 << 4),	1,		0,				1,				32,						48);
-			EnemyPropertiesPool[TYPE_SHAMAN] = new EnemyProperties( (1 << 4),	0,		 		(24 << 4), 		(27 << 4),	1,		0,				1,				32,						48);
+			//														nMoveSpeed	nClimbSpeed		nWidth			nHeight		nMaxHP	nAttackRange	nAttackPower	nMinDecisionCountdown	nMaxDecisionCountdown	nScore	nTechLevel
+			EnemyPropertiesPool[TYPE_GOBLIN] = new EnemyProperties(	(2 << 4),	(1 << 4), 		(22 << 4), 		(25 << 4),	1,		(1 << 4),		1,				30,						90,						1,		0);
+			EnemyPropertiesPool[TYPE_TROLL] = new EnemyProperties(	(1 << 4),	(1 << 4), 		(42 << 4), 		(45 << 4),	2,		(3 << 4),		2,				40,						60,						2,		30);
+			EnemyPropertiesPool[TYPE_THROWER] = new EnemyProperties((1 << 4),	0,		 		(24 << 4), 		(27 << 4),	1,		0,				1,				30,						60,						2,		50);
+			EnemyPropertiesPool[TYPE_SPIDER] = new EnemyProperties(	(2 << 4),	(1<<4)+(1<<3), 	(20 << 4), 		(20 << 4),	1,		(1 << 4),		1,				45,						50,						2,		80);
+			EnemyPropertiesPool[TYPE_RAVEN] = new EnemyProperties(	(3 << 4),	0, 				(25 << 4), 		(20 << 4), 	1, 		(1 << 4), 		1,				40, 					50,						3,		100);
+			EnemyPropertiesPool[TYPE_SHAMAN] = new EnemyProperties( (1 << 4),	0,		 		(24 << 4), 		(27 << 4),	1,		0,				1,				40,						50,						3,		140);
+			EnemyPropertiesPool[TYPE_OGRE] = new EnemyProperties(	(1 << 4),	(1 << 3), 		(40 << 4), 		(40 << 4),	4,		(8 << 4),		3,				40,						60,						4,		180);
+			maxTechLevel = 240;
 		}
 	}
 	
@@ -97,10 +111,41 @@ class EnemiesManager
 		
 		if( i < MAX_ENEMIES )
 		{
-			listEnemies[i].reset(TYPE_SHAMAN);			
+			final int currentScore = PlayerCharacter.Instance.score;
+			spawnGeneration = currentScore / maxTechLevel + 1;
+			spawnLevel = currentScore % maxTechLevel + 1;
+			
+			int seed = random.nextInt() % spawnLevel;
+			int createType = TYPE_GOBLIN;
+			for( createType=0; createType<TYPE_NUM; ++createType )
+			{
+				if( EnemyPropertiesPool[createType].TechLevel > seed )
+				{
+					--createType;
+					break;
+				}
+			}
+			if( createType < 0 )
+			{
+				createType = 0;
+			}
+			if( createType >= TYPE_NUM )
+			{
+				createType = TYPE_OGRE;
+			}
+			
+			listEnemies[i].reset(createType);
+			listEnemies[i].HP *= spawnGeneration;
 			listEnemies[i].x = ((random.nextInt() & 127) < 64 ? WALL_MIN_X : WALL_MAX_X) << 4;			
-			listEnemies[i].y = Math.abs(random.nextInt()) & 255;
-			//listEnemies[i].y = (64 + Math.abs(random.nextInt()) % (Game.wallHeight-128)) << 4;
+			
+			if(createType == TYPE_RAVEN)
+			{
+				listEnemies[i].y = (64 + Math.abs(random.nextInt()) % (Game.wallHeight-128)) << 4;
+			}
+			else
+			{
+				listEnemies[i].y = Math.abs(random.nextInt()) & 255;
+			}
 			listEnemies[i].flip = listEnemies[i].x < 0 ? Sprite.TRANS_NONE : Sprite.TRANS_MIRROR;
 		}
 		
@@ -358,4 +403,7 @@ class EnemiesManager
 	public Random random;
 	
 	public int chasingFlyersCount;
+	private int spawnGeneration;
+	private int spawnLevel;
+	private int maxTechLevel;
 }

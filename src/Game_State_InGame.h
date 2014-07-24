@@ -12,9 +12,17 @@ private void initInGame()
 	
 	if( needLoadGameData )
 	{
+		resetGame();
 		loadGameData();
 		needLoadGameData = false;
 	}
+}
+
+public void resetGame()
+{
+	playerCharacter.reset();
+	enemiesManager.reset();
+	projectilesManager.reset();
 }
 
 private void destroyInGame()
@@ -23,12 +31,28 @@ private void destroyInGame()
 
 private void updateInGame()
 {
-	playerCharacter.update();
+	if( !playerCharacter.update() )
+	{
+		resetGame();
+		changeState( k_State_MainMenu );
+	}
+	
+	if( playerCharacter.HP <= 0 )
+	{
+		return;
+	}
+	
 	enemiesManager.update();
 	projectilesManager.update();
 	
+	if( highScore < playerCharacter.score )
+	{
+		highScore = playerCharacter.score;
+	}
+	
 	if( isLeftSK )
 	{
+		saveProfile();
 		saveGameData();
 		changeState( k_State_MainMenu );
 	}	
@@ -75,10 +99,20 @@ private void paintInGame()
 			sprButtons.drawSpriteFrame( Buttons.COMMAND_SWORD_NORMAL, x, y );			
 		}
 	}	
+	
+	// score
+	font.drawNumber(PlayerCharacter.Instance.score, halfCanvasWidth, 0, AFont.kAlignCenter);
+	
+	// Health
+	sprButtons.drawSpriteFrame( Buttons.HEART, canvasWidth - 30, 2 );
+	font.drawNumber(PlayerCharacter.Instance.HP, canvasWidth - 28, 6, AFont.kAlignLeft);
 }
 
 public final void SaveGame(byte[] data, int offset)
 {
+	Util.int2Bytes(data, offset, playerCharacter.score);
+	offset += 4;
+
 	offset = playerCharacter.serialize(data, offset);
 	offset = enemiesManager.serialize(data, offset);
 	offset = projectilesManager.serialize(data, offset);
@@ -86,13 +120,23 @@ public final void SaveGame(byte[] data, int offset)
 
 public final void LoadGame(byte[] data, int offset)
 {
+	if( data == null || data.length < 4 )
+	{
+		resetGame();
+		return;
+	}
+
 	try
 	{
+		playerCharacter.score = Util.bytes2Int(data, offset);
+		offset += 4;
+	
 		offset = playerCharacter.deserialize(data, offset);
 		offset = enemiesManager.deserialize(data, offset);
 		offset = projectilesManager.deserialize(data, offset);
 	}
 	catch( Exception ex )
 	{		
+		ex.printStackTrace();
 	}
 }

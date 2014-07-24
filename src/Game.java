@@ -41,8 +41,11 @@ class Game implements CommandListener
 	
 	private Command backCommand;	
 	
+	public static Game Instance;
+	
 	public Game( AppCanvas canvas )
 	{
+		Instance = this;
 		gameCanvas = canvas;
 				
 		setSize( 240, 320 );
@@ -61,6 +64,7 @@ class Game implements CommandListener
 		resetAllKeys();
 		
 		playerCharacter = new PlayerCharacter();
+		
 		enemiesManager = new EnemiesManager();
 		projectilesManager = new ProjectilesManager();
 				

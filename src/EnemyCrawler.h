@@ -10,6 +10,7 @@ boolean updateCrawler()
 	{
 		currentAnim = MeleeAnim.dying;
 		isBehindWall = false;
+		PlayerCharacter.Instance.score += properties.Score;
 		return true;
 	}
 

@@ -9,6 +9,7 @@ boolean updateFlyer()
 	if( HP <= 0 )
 	{
 		currentAnim = FlyerAnim.dying;
+		PlayerCharacter.Instance.score += properties.Score;
 		return true;
 	}
 
@@ -52,6 +53,8 @@ void updateFlyerAttack()
 		
 			Game.playSfx(Game.SFX_IMPACT1);
 			ProjectilesManager.Instance.create(ProjectilesAnim.RAVEN_HIT, targetX + fuzzyX, PlayerCharacter.Instance.y + targetHalfHeight + fuzzyY);
+			
+			PlayerCharacter.Instance.takeHit(1);
 		}		
 	}
 	

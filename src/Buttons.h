@@ -24,4 +24,5 @@ class Buttons
 	public final static int COMMAND_BOW_NORMAL = 21;
 	public final static int COMMAND_BOW_HOVER = 22;
 	public final static int COMMAND_BOW_DOWN = 23;
+	public final static int HEART = 24;
 }

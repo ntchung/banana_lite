@@ -9,6 +9,7 @@ boolean updateShaman()
 	if( HP <= 0 )
 	{
 		currentAnim = RangedAnim.dying;		
+		PlayerCharacter.Instance.score += properties.Score;
 		return true;
 	}
 

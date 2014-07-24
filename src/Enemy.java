@@ -104,9 +104,9 @@ class Enemy
 		// serialized
 		if( data != null )
 		{
-			redecide();
-		
 			type = data[offset];
+			properties = EnemiesManager.Instance.EnemyPropertiesPool[type];
+			redecide();			
 			++offset;
 			currentAnim = data[offset];
 			++offset;
@@ -130,8 +130,7 @@ class Enemy
 			isActive = true;			
 			sprite = EnemiesManager.Instance.spritesPool[type];
 			animFramesCount = EnemiesManager.Instance.animFramesCount[type];
-			properties = EnemiesManager.Instance.EnemyPropertiesPool[type];			
-			
+
 			// new offset
 			return offset;
 		}
