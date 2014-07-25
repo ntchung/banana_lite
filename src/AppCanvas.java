@@ -145,8 +145,6 @@ class AppCanvas extends GameCanvas
 					Trace(ex);
 				}
             }
-			
-			midlet.destroyApp( true );
         }
     }
 	
@@ -169,10 +167,9 @@ class AppCanvas extends GameCanvas
 	
     public void stopApp()
     {	
+		game.destroy();
 		this.gameThread.requestStop();
 		game.isGameRunning = false;
-
-		game.destroy();
     }
 		
 	protected void hideNotify()

@@ -136,7 +136,9 @@ class Game implements CommandListener
 				break;
 
 				case k_State_InGame:
-					
+					saveProfile();
+					saveGameData();
+					changeState( k_State_MainMenu );
 				break;
 			}
         }
@@ -178,7 +180,6 @@ class Game implements CommandListener
 	{
 		SoundPlayer.StopAllSounds();
 		isGameRunning = false;
-		saveProfile();
 	}
 	
 	private void initCurrentState()

@@ -6,8 +6,10 @@ package PACKAGE_NAME;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 import java.util.Hashtable;
+import vAdEngine.VservInterface;
+import vAdEngine.VservManager;
 
-public class MyGame extends MIDlet
+public class MyGame extends MIDlet implements VservInterface
 {
 	public static AppCanvas myCanvas;
 	
@@ -25,14 +27,19 @@ public class MyGame extends MIDlet
 
     public MyGame()
     {
+		
+    }
+	
+	public void constructorMainApp()
+    {
 		myCanvas = new AppCanvas();
         myCanvas.midlet = this;
 
 		retrieveVersionString();
     }
-
-    public void startApp()
-    {
+	
+	public void startMainApp()
+	{
 		/*String test = null;
 		
 		try
@@ -59,12 +66,24 @@ public class MyGame extends MIDlet
 		Display.getDisplay( this ).setCurrent( myCanvas );		
 		
 		myCanvas.start();  		
+	}
+
+    public void startApp()
+    {
+		Hashtable vservConfigTableAd = new Hashtable();
+        vservConfigTableAd.put("zoneId", "41d85cd0");
+        vservConfigTableAd.put("showAt", "start");
+        new VservManager(this, vservConfigTableAd);
     }
 
 	public void exit() 
 	{
 		destroyApp(true);
-		notifyDestroyed();
+		//notifyDestroyed();
+		Hashtable vservConfigTableAd = new Hashtable();
+        vservConfigTableAd.put("zoneId", "41d85cd0");
+        vservConfigTableAd.put("showAt", "end");
+        new VservManager(this, vservConfigTableAd);
 	}
 
 	protected void pauseApp()
@@ -83,4 +102,17 @@ public class MyGame extends MIDlet
 			myCanvas.stopApp();
 		}
     }	
+	
+	public void showMidAds()
+	{
+		Hashtable vservConfigTableAd = new Hashtable();
+		vservConfigTableAd.put("zoneId", "41d85cd0");
+		vservConfigTableAd.put("showAt", "mid");
+		new VservManager(this, vservConfigTableAd);
+	}
+	
+	public void resumeMainApp()
+    {
+        Display.getDisplay(this).setCurrent(myCanvas);
+    }
 }

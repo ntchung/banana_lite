@@ -1,5 +1,6 @@
 
 private boolean needLoadGameData = true;
+private int dyingCounter = 0;
 
 private void initInGame()
 {	
@@ -35,6 +36,14 @@ private void updateInGame()
 	{
 		resetGame();
 		changeState( k_State_MainMenu );
+		
+		++dyingCounter;
+		if( dyingCounter >= 5 )
+		{
+			dyingCounter = 0;
+			
+			gameCanvas.midlet.showMidAds();
+		}
 	}
 	
 	if( playerCharacter.HP <= 0 )
