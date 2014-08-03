@@ -15,11 +15,11 @@ import java.util.TimerTask;
 
 class AppCanvas extends GameCanvas
 {
-	public MyGame midlet;
+	public static MyGame midlet;
 	
 	private int kMaxFPS = 30;
 	
-	public Game game;
+	public static Game game;
 	private boolean isPaused;
 		
 	private GameThread gameThread;

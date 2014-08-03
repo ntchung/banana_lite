@@ -8,6 +8,8 @@ private GameMenu menuMain;
 
 private int currentMainMenu;
 
+private int showAdsCounter = 5;
+
 private void initMainMenu()
 {
 	currentMainMenu = MAIN_MENU_BASE;
@@ -19,17 +21,26 @@ private void initMainMenu()
 		wallHeight = imgWall.getHeight() - 16;
 	}
 
-	menuMain = new GameMenu( 4, GameMenu.kBarTypeShort );
+	menuMain = new GameMenu( 5, GameMenu.kBarTypeShort );
 	menuMain.setItem( 0, STR_NEWGAME );
 	menuMain.setItem( 1, STR_SOUND_ON );
 	menuMain.setItem( 2, STR_HELP );
 	menuMain.setItem( 3, STR_ABOUT );
+	menuMain.setItem( 4, STR_LEADERBOARD );
 	menuMain.soundItem = 1;
 	
 	menuMain.init();
 	
 	setLeftSoftkey(kSoftkeyYes);
 	setRightSoftkey(kSoftkeyQuit);
+	
+	if( showAdsCounter <= 0 )
+	{
+		showAdsCounter = 5;
+		
+		gameCanvas.midlet.showMidAds();		
+	}
+	--showAdsCounter;
 }
 
 private void destroyMainMenu()
@@ -42,6 +53,9 @@ private void updateMainMenu()
 {
 	if( currentMainMenu == MAIN_MENU_BASE )
 	{
+		setLeftSoftkey(kSoftkeyYes);
+		setRightSoftkey(kSoftkeyQuit);
+	
 		if( updateMenu( menuMain ) )
 		{	
 			switch( menuMain.select )
@@ -61,6 +75,9 @@ private void updateMainMenu()
 				setLeftSoftkey(kSoftkeyYes);
 				setRightSoftkey(kSoftkeyNone);
 				currentMainMenu = MAIN_MENU_ABOUT;
+			break;
+			case 4:
+				gameCanvas.midlet.switchToLeaderboard();
 			break;
 			}
 			
@@ -94,13 +111,13 @@ private void paintMainMenu()
 			( canvasWidth - imgWall.getWidth() ) >> 1, 
 			( canvasHeight - imgWall.getHeight() ), 0 );
 			
-		menuMain.paint( canvasWidth >> 1, canvasHeight / 3 );
+		menuMain.paint( canvasWidth >> 1, canvasHeight / 4 );
 		
 		currentGraphics.drawImage( imgTitle, 0, 0, 0 );	
 		
-		int y = canvasHeight - (font.fontHeight << 1) - (font.fontHeight >> 1);
-		font.drawString( STR_HIGHSCORE, canvasWidth >> 1, y, AFont.kAlignCenter );	
-		font.drawNumber( highScore, canvasWidth >> 1, y + font.fontHeight, AFont.kAlignCenter );	
+		int y = 2;
+		font.drawString( STR_HIGHSCORE, (canvasWidth << 1) / 3, y, AFont.kAlignCenter );	
+		font.drawNumber( highScore, (canvasWidth << 1) / 3, y + font.fontHeight, AFont.kAlignCenter );	
 	}
 	else if( currentMainMenu == MAIN_MENU_HELP )
 	{

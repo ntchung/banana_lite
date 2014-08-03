@@ -9,6 +9,9 @@ private static final int recordSize = recordHighScore + 4;
 public static int optionSound;
 public static int optionLanguage;
 public static int highScore;
+
+public static String optionUsername = "";
+public static String optionPassword = "";
  
 private void resetProfile()
 {
@@ -16,6 +19,9 @@ private void resetProfile()
 	optionSound = 1;
 	optionLanguage = 0;
 	highScore = 0;
+	
+	optionUsername = "";
+	optionPassword = "";
 	saveProfile();
 }
 
@@ -57,6 +63,20 @@ private boolean loadProfile()
 			optionSound = data[recordOptionSound];
 			highScore = Util.bytes2Int(data, recordHighScore);
 			
+			int offset = recordSize;
+			int dataUsernameLength = data[offset];
+			++offset;
+			int dataPasswordLength = data[offset];			
+			++offset;
+			byte[] dataUsername = new byte[dataUsernameLength];
+			byte[] dataPassword = new byte[dataPasswordLength];
+			System.arraycopy(data, offset, dataUsername, 0, dataUsernameLength);
+			offset += dataUsernameLength;
+			System.arraycopy(data, offset, dataPassword, 0, dataPasswordLength);
+			
+			optionUsername = new String(dataUsername);
+			optionPassword = new String(dataPassword);
+			
 			validateProfile();
 			data = null;
 		}	
@@ -73,11 +93,23 @@ private boolean loadProfile()
 
 public void saveProfile()
 {
-	byte[] data = new byte[recordSize];
+	byte[] dataUsername = optionUsername.getBytes();
+	byte[] dataPassword = optionPassword.getBytes();
+
+	byte[] data = new byte[recordSize + 2 + dataUsername.length + dataPassword.length ];
 	
 	data[recordOptionLanguage] = (byte)optionLanguage;
 	data[recordOptionSound] = (byte)optionSound;	
 	Util.int2Bytes(data, recordHighScore, highScore);
+	
+	int offset = recordSize;
+	data[offset] = (byte)dataUsername.length;
+	++offset;
+	data[offset] = (byte)dataPassword.length;
+	++offset;
+	System.arraycopy(dataUsername, 0, data, offset, dataUsername.length);
+	offset += dataUsername.length;
+	System.arraycopy(dataPassword, 0, data, offset, dataPassword.length);
 	
 	rmsWrite( recordName, 1, data );
 }

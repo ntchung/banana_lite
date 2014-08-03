@@ -12,6 +12,7 @@ import vAdEngine.VservManager;
 public class MyGame extends MIDlet implements VservInterface
 {
 	public static AppCanvas myCanvas;
+	public static Leaderboard myLeaderboard;
 	
 	private final void retrieveVersionString()
 	{
@@ -32,6 +33,7 @@ public class MyGame extends MIDlet implements VservInterface
 	
 	public void constructorMainApp()
     {
+		myLeaderboard = new Leaderboard("Leaderboard");
 		myCanvas = new AppCanvas();
         myCanvas.midlet = this;
 
@@ -115,4 +117,19 @@ public class MyGame extends MIDlet implements VservInterface
     {
         Display.getDisplay(this).setCurrent(myCanvas);
     }
+	
+	public void switchToLeaderboard()
+	{
+		Display.getDisplay( this ).setCurrent( myLeaderboard );	
+	}
+	
+	public void switchToGame()
+	{		
+		Display.getDisplay( this ).setCurrent( myCanvas );
+	}
+	
+	public void setDisplayable(Displayable disp)
+	{
+		Display.getDisplay( this ).setCurrent( disp );
+	}
 }

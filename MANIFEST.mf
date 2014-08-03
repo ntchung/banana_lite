@@ -6,7 +6,7 @@ MIDlet-Name: CastleAttack
 MIDlet-Icon: /i.png
 MIDlet-Vendor: Kinoa Studios
 MIDlet-1: CastleAttack, /i.png, com.kinoastudios.CastleAttack.MyGame
-MIDlet-Version: 1.0.1
+MIDlet-Version: 1.0.2
 MicroEdition-Profile: MIDP-2.0
 Nokia-MIDlet-Category: Game
 Nokia-MIDlet-On-Screen-Keypad: no
