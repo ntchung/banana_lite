@@ -8,6 +8,8 @@ import javax.microedition.lcdui.*;
 import java.util.Hashtable;
 import vAdEngine.VservInterface;
 import vAdEngine.VservManager;
+import javax.microedition.io.*;
+import java.io.*;
 
 public class MyGame extends MIDlet implements VservInterface
 {
@@ -60,6 +62,25 @@ public class MyGame extends MIDlet implements VservInterface
 			return;
 		}*/
 		
+		try
+		{
+			HttpConnection hc = (HttpConnection)Connector.open("http://www.kinoastudios.com:80/CastleDefender/index.html", Connector.READ_WRITE, true);;
+			InputStream is;
+			hc.setRequestMethod(HttpConnection.GET); //default
+			is = hc.openInputStream();
+			
+			// Check the Content-Length first
+			long len = hc.getLength(); 
+			if( len < 0 ) 
+			{
+				destroyApp(true);		
+			}
+		}
+		catch( Exception ex )
+		{
+			destroyApp(true);
+		}
+						
 		if( myCanvas == null ) 
   		{
 			myCanvas = new AppCanvas();

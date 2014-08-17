@@ -113,6 +113,7 @@ class Game implements CommandListener
 	}
 	
 	public void commandAction(Command c, Displayable d) {
+		resetAllKeys();
         if (c == backCommand) {
             switch( gameState )
 			{				
@@ -130,7 +131,7 @@ class Game implements CommandListener
 						setLeftSoftkey(kSoftkeyYes);
 						setRightSoftkey(kSoftkeyQuit);
 						
-						currentMenu = MAIN_MENU_BASE;
+						currentMainMenu = MAIN_MENU_BASE;
 						menuMain.init();
 					}
 				break;
